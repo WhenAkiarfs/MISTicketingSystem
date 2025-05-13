@@ -6,7 +6,7 @@
 
 include '../Includes/config.php';
 include '../Includes/check_session.php';
-if ($_SESSION['RoleId'] != 1) {
+if ($_SESSION['RoleId'] != 2) {
     header('Location: ../employee/home.php');
     exit();
 }
@@ -37,12 +37,8 @@ if ($_SESSION['RoleId'] != 1) {
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Chart.js CDN Link -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <!-- Custom JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
-    <script src="../asset/js/adminCharts.js"></script>
     <script src="../asset/js/sidebar.js"></script>
     <script src="../asset/js/adminAllTickets.js"></script>
 </head>
@@ -57,23 +53,23 @@ if ($_SESSION['RoleId'] != 1) {
             <!-- Main Content -->
             <main class="px-4 py-5">
             <div class="col-12">
-                <div class="container-fluid tixmgmt-nav">
+            <div class="container-fluid tixmgmt-nav">
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
                     <!-- Tabs Section -->
                     <div class="d-flex flex-wrap gap-2">
-                        <div class="div-mods inactive" onclick="window.location.href='adminTicketMgmt.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='licTicketMgmt.php'">
                             <span class="mods">Repair Requests</span>
                         </div>
-                        <div class="div-mods inactive" onclick="window.location.href='adminCompletedTickets.php'">
+                        <div class="div-mods active" onclick="window.location.href='licCompletedTickets.php'">
                             <span class="mods">Completed Tickets</span>
                         </div>
-                        <div class="div-mods active" onclick="window.location.href='adminArchivedTickets.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='licArchivedTickets.php'">
                             <span class="mods">Ticket History Archive</span>
                         </div>
                     </div>
 
                     <!-- Controls Section -->
-                    <div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-2 controls-container">
+                    <div class="d-flex flex-wrap flex-lg-nowrap align-items-center gap-2">
                         <!-- Search -->
                         <div class="input-group" style="max-width: 280px;">
                             <input type="text" class="form-control" placeholder="Search" aria-label="Search">
@@ -88,23 +84,22 @@ if ($_SESSION['RoleId'] != 1) {
                         <!-- Filter Dropdown -->
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
-                                <i class="fa fa-filter me-1"></i> Filter
+                                <i class="fa fa-filter me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-book-open me-2"></i>Branch</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>IT Technician</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i>Type of Issue</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-circle me-2"></i>IT Technician</a></li>
                             </ul>
                         </div>
 
                         <!-- Sort Dropdown -->
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
-                                <i class="fa fa-sort me-1"></i> Sort
+                                <i class="fa fa-sort me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-arrow-down-short-wide me-2"></i>Ascending</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-arrow-up-short-wide me-2"></i>Descending</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-sort-alpha-up me-2"></i>Ascending</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-sort-alpha-down me-2"></i>Descending</a></li>
                             </ul>
                         </div>
                     </div>
@@ -112,61 +107,56 @@ if ($_SESSION['RoleId'] != 1) {
                 </div>
             </div>
 
-        <!-- Ticket History Archive Table -->
-            <div class="row no-gutters mt-4">
-                <div class="col-12">
-                    <div class="table-responsive"> 
-                        <table class="table table-striped table-hover" id="tblTicketArchive">
-                        <thead class="thead-dark" style="text-align: center;">
-                            <tr>
-                                <th style="width: 4%;">Submitted At</th>
-                                <th style="width: 3%;">Ticket ID</th>
-                                <th style="width: 3%;">Type of Issue</th>
-                                <th style="width: 6%;">Branch</th>
-                                <th style="width: 5%;">Assigned IT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td id="tixID">1001</td>
-                                <td id="tixType">Hardware</td>
-                                <td>QCPL</td>
-                                <td>John Adams</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1002</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>John Doe</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1003</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Smith</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1004</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Adams</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
+            <!-- Completed Tickets Table -->
+            <div class="row no-gutters mt-3">
+            <div class="col-12">
+                <div class="table-responsive"> 
+                    <table class="table table-striped table-hover" id="tblCompletedTickets">
+                    <thead class="thead-dark" style="text-align: center;">
+                        <tr>
+                            <th style="width: 4%;">Submitted At</th>
+                            <th style="width: 3%;">Ticket ID</th>
+                            <th style="width: 3%;">Type of Issue</th>
+                            <th style="width: 5%;">Assigned IT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Apr 12, 2025, 09:43:15</td>
+                            <td id="tixID">1001</td>
+                            <td id="tixType">Hardware</td>
+                            <td>Jane Smith</td>  
+                        </tr>
+                        <tr>
+                            <td>Apr 12, 2025, 09:43:15</td>
+                            <td>1002</td>
+                            <td>Software</td>
+                            <td>John Doe</td>
+                        </tr>
+                        <tr>
+                            <td>Apr 12, 2025, 09:43:15</td>
+                            <td>1003</td>
+                            <td>Software</td>
+                            <td>Jane Adams</td>
+                        </tr>
+                        <tr>
+                            <td>Apr 12, 2025, 09:43:15</td>
+                            <td>1004</td>
+                            <td>Software</td>
+                            <td>Jack Johnson</td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
+            </div>
 
-                <div class="pagination-container">
-                    <ul class="pagination" id="pagination">
-                        <!-- Pagination -->
-                    </ul>
-                </div>
-            </main>
-        </div>
+            <div class="pagination-container">
+                <ul class="pagination" id="pagination">
+                    <!-- Pagination -->
+                </ul>
+            </div>
+        </main>
     </div>
+</div>
 </body>
 </html>

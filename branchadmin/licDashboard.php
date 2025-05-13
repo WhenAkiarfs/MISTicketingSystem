@@ -6,10 +6,11 @@
 
 include '../Includes/config.php';
 include '../Includes/check_session.php';
-if ($_SESSION['RoleId'] != 1) {
+if ($_SESSION['RoleId'] != 2) {
     header('Location: ../employee/home.php');
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -167,7 +168,7 @@ if ($_SESSION['RoleId'] != 1) {
                             </ul>
 
                         <!-- View All Tickets Link -->
-                        <p class="view m-0"><a href="adminTicketMgmt.php">View All Tickets <i class="fa-solid fa-chevron-right"></i></a></p>
+                        <p class="view m-0"><a href="licTicketMgmt.php">View All Tickets <i class="fa-solid fa-chevron-right"></i></a></p>
                         </div>
 
                         <!-- Tab Content Container -->
@@ -261,34 +262,11 @@ if ($_SESSION['RoleId'] != 1) {
                         </div>
                     </div>
                 </div>
-                
-                <!-- Charts Container -->
-                <div class="row no-gutters mt-3 align-items-center">
-                    <div class="col-md-4 mb-3">
-                        <div class="chart-card">
-                            <canvas id="branchMostTicketChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="chart-card">
-                            <canvas id="mostSoftwareIssueChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <div class="chart-card">
-                            <canvas id="mostHardwareIssueChart"></canvas>
-                        </div>
-                    </div>
-            </div>
         </div>
         </div>
-            </main>
+        </main>
         </div>
     </div>
-
-    <!-- View Ticket Info Modal -->
-    <?php include '../modals/viewTicketInfo.php'; ?>
-    <!-- External JS Link -->
-    <script src="../asset/js/adminCharts.js"></script>
 </body>
 </html>
+

@@ -22,7 +22,11 @@ if ($_SESSION['RoleId'] != 1) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-ticket-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->

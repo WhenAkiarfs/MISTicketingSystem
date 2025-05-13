@@ -78,8 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-dashboard.css">
-    <link rel="stylesheet" href="../asset/css/admin-staff-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -173,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </span>
                                             </td>
                                             <td>
+                                            <!-- Edit Button -->
                                             <button 
                                                 class="btn btn-edit btn-sm" 
                                                 data-bs-toggle="modal" 
@@ -180,35 +183,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 Edit
                                             </button>
                                             <div class="modal fade" id="editModal<?php echo $user['UserId']; ?>" tabindex="-1">
-                        //Update modal
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <form method="POST" action="../modals/adminUpdateIT.php">
-                                <div class="modal-header">
-                                <h5 class="modal-title">Edit IT Staff</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
-                                <input type="hidden" name="id" value="<?php echo $user['UserId']; ?>">
-                                <label>First Name:</label>
-                                <input type="text" name="first_name" class="form-control" value="<?php echo $user['FirstName']; ?>" required>
-                                <label>Last Name:</label>
-                                <input type="text" name="last_name" class="form-control" value="<?php echo $user['LastName']; ?>" required>
-                                <label>Email:</label>
-                                <input type="email" name="email" class="form-control" value="<?php echo $user['Email']; ?>" required>
-                                <label>Contact No:</label>
-                                <input type="text" name="contactno" class="form-control" value="<?php echo $user['Contactno']; ?>" required>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                        </div>
+                                            <!-- Update IT Modal -->
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                <form method="POST" action="../modals/adminUpdateIT.php">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title">Edit IT Staff</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <input type="hidden" name="id" value="<?php echo $user['UserId']; ?>">
+                                                    <label>First Name:</label>
+                                                    <input type="text" name="first_name" class="form-control" value="<?php echo $user['FirstName']; ?>" required>
+                                                    <label>Last Name:</label>
+                                                    <input type="text" name="last_name" class="form-control" value="<?php echo $user['LastName']; ?>" required>
+                                                    <label>Email:</label>
+                                                    <input type="email" name="email" class="form-control" value="<?php echo $user['Email']; ?>" required>
+                                                    <label>Contact No:</label>
+                                                    <input type="text" name="contactno" class="form-control" value="<?php echo $user['Contactno']; ?>" required>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    </div>
+                                                </form>
+                                                </div>
+                                            </div>
+                                            </div>
 
-                                          
+                                            <!-- Delete Button -->
                                             <button class="btn btn-danger btn-sm" onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">Delete</button>
                                             </td>
                                         </tr>
@@ -234,16 +237,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="../asset/js/adminfetchModal.js"></script>
     
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#staffTable tbody tr');
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#staffTable tbody tr');
 
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        rows.forEach(row => {
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
+        });
     });
-  });
-</script>
+    </script>
 </body>
 </html>

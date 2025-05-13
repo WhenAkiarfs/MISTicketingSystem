@@ -1,0 +1,197 @@
+/*RECENT TICKET */
+.ticket-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    background:#0038a8;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s, box-shadow 0.3s;
+}
+
+.ticket-container:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ticket-header {
+    background: #0038a8;
+    color: white;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.ticket-header h5 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.ticket-body {
+    padding: 1rem;
+    background-color: white;
+    color: #222;
+}
+
+#ticket-id, #ticket-status, #ticket-branch, 
+#ticket-issue, #ticket-date, #ticket-time  {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.ticket-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticket-grid div {
+    flex: 1;
+}
+
+/*TICKET SUMMARY CARDS*/
+#ticket-summary-title {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #0038a8;
+    text-align: left;
+}
+
+.ticket-card {
+    background-color: #fff;
+    border-radius: 12px;
+    height: 250px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.ticket-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.ticket-card h5 {
+    margin-bottom: 10px;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #222;
+}
+
+.ticket-card .ticket-count {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.ticket-card i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #0060c7;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/*ICON ANIMATION*/
+.ticket-card.pending i {
+    animation: pulse 0.6s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.25);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.ticket-card.ongoing i {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+}
+}
+
+.ticket-card.completed i {
+    animation: checkmarkTick 2s infinite;
+}
+
+@keyframes checkmarkTick {
+    0% {
+        transform: scale(0) rotate(0deg);  /* Start with small and rotated */
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1) rotate(0deg);  /* Slightly enlarge */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(0deg);  /* Final normal state */
+        opacity: 0;
+    }
+}
+
+.ticket-card.total i {
+    animation: flip 2s infinite;
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+    50% {
+        transform: rotateY(180deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+/* Icon color by status */
+.ticket-card.pending i { color: #ffc107; }
+.ticket-card.ongoing i { color: #17a2b8; }
+.ticket-card.completed i { color: #0fa100; }
+.ticket-card.total i { color: #0038a8; }
+
+/* Color accents per status */
+.ticket-card.pending {
+    border-top: 7px solid #ffc107;
+}
+
+.ticket-card.ongoing {
+    border-top: 7px solid #17a2b8;
+}
+
+.ticket-card.completed {
+    border-top: 7px solid #0fa100;
+}
+
+.ticket-card.total {
+    border-top: 7px solid #0038a8;
+}
+
+/* Responsive tweak */
+    @media (max-width: 768px) {
+    .ticket-card {
+        padding: 16px;
+    }
+}

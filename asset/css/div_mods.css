@@ -1,0 +1,56 @@
+/* NAVIGATION BAR */
+.tixmgmt-nav, .assetmgmt-nav, .branchmgmt-nav {
+    margin: auto;
+    text-align: center;
+}
+
+/* Tabs */
+.tixmgmt-nav .div-mods, .assetmgmt-nav .div-mods, .branchmgmt-nav .div-mods, .div-mods {
+    border: 3px solid #0060c7;
+    border-radius: 50px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 18px;
+    height: 40px;
+    font-size: 17px;
+    min-width: 160px;
+    max-width: 220px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.mods {
+    text-decoration: none;
+    color: #0060c7;
+}
+
+/* Active Tab */
+.div-mods.active {
+    background-color: #0060c7;
+}
+
+.div-mods.active .mods {
+    color: #fafafa;
+}
+
+/* Inactive Tab */
+.div-mods.inactive {
+    background-color: white;
+}
+
+.div-mods.inactive:hover {
+    background-color: #e9ecef;
+}
+
+/* Action Tab */
+.div-mods.action {
+    background-color: #d7e7ff;
+    border-color: #d7e7ff;
+}
+
+.div-mods.action .mods {
+    color: #0052aa;
+}

@@ -2,9 +2,6 @@
   var pageTitle = "Asset Management";
 </script>
 
-
-
-
 <?php
 include '../Includes/config.php';
 
@@ -16,16 +13,7 @@ $sql = "SELECT * FROM t_asset
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
 ?>
-
-<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-  <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-    ✅ New asset registered successfully!
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -72,10 +60,10 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Left: Asset Management -->
             <!-- Tabs Section -->
             <div class="d-flex flex-wrap gap-2">
-                <div class="div-mods active" onclick="window.location.href='adminAssetMgmt.php'">
+                <div class="div-mods active" onclick="window.location.href='licAssetMgmt.php'">
                     <span class="mods">All Assets</span>
                 </div>
-                <div class="div-mods inactive" onclick="window.location.href='adminTransferRequestsList.php'">
+                <div class="div-mods inactive" onclick="window.location.href='licTransferRequestsList.php'">
                     <span class="mods">Transfer Requests</span>
                 </div>
                 <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerAssetModal">
@@ -87,7 +75,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="d-flex flex-wrap align-items-center gap-3" style="flex: 1 1 auto; justify-content: flex-end;">
             <!-- Search Bar -->
             <div class="input-group" style="max-width: 300px;">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-icon">
+            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-icon">
             <span class="input-group-text control-btn" id="search-icon">
                 <i class="fa fa-search"></i>
             </span>
@@ -106,7 +94,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
-                    <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-location-dot me-2"></i>Branch</a></li>
                 </ul>
             </div>
             
@@ -128,11 +115,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="row no-gutters mt-4">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table id="assetTable" class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width: 4%;">Branch</th>
-                                    <th style="width: 2.5%;">Brand</th>
+                                    <th style="width: 2.5%;">Asset ID</th>
+                                    <th style="width: 3%;">Brand</th>
                                     <th style="width: 3%;">Serial Number</th>
                                     <th style="width: 3%;">Property Number</th>
                                     <th style="width: 3%;">Acquisition</th>
@@ -149,7 +136,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php else: ?>
                                     <?php foreach ($assets as $asset): ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($asset['BranchName']); ?></td>
+                                            <td><?php echo htmlspecialchars($asset['AssetId']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['AssetName']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['SerialNumber']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['PropertyNumber']); ?></td>
@@ -169,19 +156,5 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     <?php include '../modals/RegisterAsset.php'; ?>
-
-    <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#assetTable tbody tr');
-
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
-    });
-  });
-</script>
 </body>
-
 </html>

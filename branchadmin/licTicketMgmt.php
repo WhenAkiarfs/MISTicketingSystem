@@ -6,18 +6,10 @@
 
 include '../Includes/config.php';
 include '../Includes/check_session.php';
-
-//Ticket table 
-
-
-if ($_SESSION['RoleId'] != 1) {
+if ($_SESSION['RoleId'] != 2) {
     header('Location: ../employee/home.php');
     exit();
 }
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -34,14 +26,13 @@ if ($_SESSION['RoleId'] != 1) {
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
     <link rel="stylesheet" href="../asset/css/tbl-controls.css">
-    <link rel="stylesheet" href="../asset/css/buttons.css">
-    <link rel ="stylesheet" href="../asset/css/pagination.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap 5 JS Bundle (includes Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -49,7 +40,6 @@ if ($_SESSION['RoleId'] != 1) {
     <!-- Custom JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
     <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminAllTickets.js"></script>
 </head>
 
 <body>
@@ -66,13 +56,13 @@ if ($_SESSION['RoleId'] != 1) {
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
                     <!-- Tabs Section -->
                     <div class="d-flex flex-wrap gap-2">
-                        <div class="div-mods active" onclick="window.location.href='adminTicketMgmt.php'">
+                        <div class="div-mods active" onclick="window.location.href='licTicketMgmt.php'">
                             <span class="mods">Repair Requests</span>
                         </div>
-                        <div class="div-mods inactive" onclick="window.location.href='adminCompletedTickets.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='licCompletedTickets.php'">
                             <span class="mods">Completed Tickets</span>
                         </div>
-                        <div class="div-mods inactive" onclick="window.location.href='adminArchivedTickets.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='licArchivedTickets.php'">
                             <span class="mods">Ticket History Archive</span>
                         </div>
                     </div>
@@ -96,9 +86,7 @@ if ($_SESSION['RoleId'] != 1) {
                                 <i class="fa fa-filter me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-simple me-2"></i>Status</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-location-dot me-2"></i>Type of Issue</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-book-open me-2"></i>Branch</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i>Type of Issue</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user-circle me-2"></i>IT Technician</a></li>
                             </ul>
                         </div>
@@ -118,10 +106,11 @@ if ($_SESSION['RoleId'] != 1) {
                 </div>
             </div>
 
-        <!-- Repair Requests Table -->
             <div class="row no-gutters mt-4">
-            <!-- Tabs Header -->
-            <div class="d-flex justify-content-between align-items-center mb-1">
+            <!-- Tabs Header + Submit Button Container -->
+            <div class="d-flex justify-content-between align-items-center mb-1 w-100">
+                
+                <!-- Tabs -->
                 <ul class="nav nav-tabs mt-2" id="nav-tix" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" id="pending-tab" data-bs-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
@@ -133,7 +122,13 @@ if ($_SESSION['RoleId'] != 1) {
                         <a class="nav-link" id="alltix-tab" data-bs-toggle="tab" href="#alltix" role="tab" aria-controls="alltix" aria-selected="false">All Tickets</a>
                     </li>
                 </ul>
+
+                <!-- Submit Ticket Button -->
+                <button type="button" class="btn btn-submit ms-3" data-bs-toggle="modal" data-bs-target="#submitTicketModal">
+                    Submit a Ticket
+                </button>
             </div>
+        </div>
 
             <!-- All Repair Tickets Submitted Table -->
             <!-- Tabs Content -->
@@ -142,11 +137,12 @@ if ($_SESSION['RoleId'] != 1) {
                 <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                     <table class="table table-striped table-hover mt-3" id="tblRepairTickets">
                         <thead class="thead-dark">
-                            <tr>
+                        <tr>
                                 <th style="width: 4%;">Submitted At</th>
                                 <th style="width: 3%;">Ticket ID</th>
+                                <th style="width: 3%;">Asset</th>
                                 <th style="width: 3%;">Type of Issue</th>
-                                <th style="width: 6%;">Branch</th>
+                                <th style="width: 6%;">Description</th>
                                 <th style="width: 5%;">IT Technician</th>
                             </tr>
                         </thead>
@@ -154,11 +150,12 @@ if ($_SESSION['RoleId'] != 1) {
                             <tr>
                                 <td>Apr 12, 2025, 09:43:15</td>
                                 <td>1001</td>
+                                <td>Monitor</td>
                                 <td>Hardware</td>
-                                <td>QCPL</td>
-                                <td>-</td>
+                                <td>Monitor is not turning on</td>
+                                <td>John Doe</td>
                             </tr>
-                            <!-- Rows will be populated by JavaScript -->
+                            <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
                 </div>
@@ -167,24 +164,25 @@ if ($_SESSION['RoleId'] != 1) {
                 <div class="tab-pane fade" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
                     <table class="table table-md table-bordered table-striped table-hover mt-3">
                         <thead class="thead-dark">
-                            <tr>
-                                <th class="dateTime" style="width: 5%">Submitted At</th>
-                                <th class="tixId" style="width: 4%">Ticket ID</th>
-                                <th class="branch" style="width: 7%">Branch</th>
-                                <th class="issue" style="width: 7%">Issue</th>
-                                <th class="assignedIT" style="width: 5%">Assigned IT</th>
+                        <tr>
+                                <th style="width: 4%;">Submitted At</th>
+                                <th style="width: 3%;">Ticket ID</th>
+                                <th style="width: 3%;">Asset</th>
+                                <th style="width: 3%;">Type of Issue</th>
+                                <th style="width: 6%;">Description</th>
+                                <th style="width: 5%;">IT Technician</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Apr 12, 2025, 09:43:15</td>
-                            <td>1002</td>
-                            <td>Software</td>
-                            <td>QCPL</td>
-                            <td>John Doe</td>
+                            <tr>
+                                <td>Apr 12, 2025, 09:43:15</td>
+                                <td>1002</td>
+                                <td>Monitor</td>
+                                <td>Hardware</td>
+                                <td>Monitor is not turning on</td>
+                                <td>John Doe</td>
                             </tr>
-                        <tr>
-                            <!-- Rows will be populated by JavaScript -->
+                            <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
                 </div>
@@ -196,39 +194,67 @@ if ($_SESSION['RoleId'] != 1) {
                             <tr>
                                 <th class="dateTime" style="width: 5%">Submitted At</th>
                                 <th class="tixId" style="width: 4%">Ticket ID</th>
-                                <th class="branch" style="width: 7%">Branch</th>
-                                <th class="issue" style="width: 7%">Issue</th>
+                                <th class="branch" style="width: 4%">Asset</th>
+                                <th class="issue" style="width: 4%">Type of Issue</th>
+                                <th class="description" style="width: 6%">Description</th>
                                 <th class="assignedIT" style="width: 5%">Assigned IT</th>
                                 <th class="status" style="width: 5%">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>Apr 12, 2025, 09:43:15</td>
-                            <td>1001</td>
-                            <td>Hardware</td>
-                            <td>QCPL</td>
-                            <td>-</td>
-                            <td><button type="button" class="btn btn-status">Pending</button></td>
-                        </tr>
-                            <!-- Rows will be populated by JavaScript -->
+                                <td>Apr 12, 2025, 09:43:15</td>
+                                <td>1001</td>
+                                <td>Monitor</td>
+                                <td>Hardware</td>
+                                <td>Monitor is not turning on</td>
+                                <td>John Doe</td>
+                                <td><button type="button" class="btn btn-pending">Pending</button></td>
+                            </tr>
+                            <tr>
+                                <td>Apr 12, 2025, 09:43:15</td>
+                                <td>1002</td>
+                                <td>Monitor</td>
+                                <td>Hardware</td>
+                                <td>Monitor is not turning on</td>
+                                <td>Johann Doe</td>
+                                <td>
+                                <button type="button" class="btn btn-ongoing" id="tixStatus">On Going</button>
+                                </td>
+                                </tr>
+                            <tr>
+                                <td>Apr 12, 2025, 09:43:15</td>
+                                <td>1003</td>
+                                <td>Monitor</td>
+                                <td>Hardware</td>
+                                <td>Monitor is not turning on</td>
+                                <td>Jane Smith</td>
+                                <td>
+                                <button type="button" class="btn btn-completed" id="tixStatus">Completed</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Apr 12, 2025, 09:43:15</td>
+                                <td>1004</td>
+                                <td>Monitor</td>
+                                <td>Hardware</td>
+                                <td>Monitor is not turning on</td>
+                                <td>Janna Adams</td>
+                                <td>
+                                <button type="button" class="btn btn-cancelled" id="tixStatus">Cancelled</button>
+                                </td>
+                            </tr>
+                            <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
-            <!-- Pagination -->
-            <div class="pagination-container">
-                <ul class="pagination" id="pagination">
-                    <!-- Pagination -->
-                </ul>
-            </div>
-            </main>
+        </main>
         </div>
     </div>
-    <!-- End of Main Content -->
-
+    <!-- Submit Ticket Modal -->
+    <?php include '../modals/submitTicket.php'; ?>
     <!-- View Ticket Modal -->
     <?php include '../modals/viewTicketInfo.php'; ?>
 </body>

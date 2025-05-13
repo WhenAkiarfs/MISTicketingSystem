@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: ../admin/admindashboard.php');
             exit();
         } elseif ($user['RoleId'] == 2) {
-            header('Location: ../branchadmin/bradmindashboard.php');
+            header('Location: ../branchadmin/licDashboard.php');
             exit();
         } elseif ($user['RoleId'] == 3) {
             header('Location: ../ITstaff/ITdashboard.php');

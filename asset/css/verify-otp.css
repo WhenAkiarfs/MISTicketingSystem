@@ -6,17 +6,17 @@ body {
     background-color: rgba(125, 162, 225, 0.6);
 }
 
-/* FORGOT PASSWORD FORM */
+/* VERIFY OTP FORM */
 
 .card {
-    height: 28rem;
+    height: 27rem;
     width: 25rem;
     background-color: #fafafa;
     border-radius: 20px;
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 30px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .custom-input {
@@ -38,7 +38,7 @@ h3 {
     font-weight: bold;
     color: #0136a0;
     position: absolute;
-    top: 10rem;
+    top: 9rem;
     left: 8rem;
     right: 8rem;
 }
@@ -48,7 +48,7 @@ h4 {
     font-weight: bold;
     color: #0038a8;
     position: relative;
-    top: 3rem;
+    top: 3.3rem;
 }
 
 .btn {

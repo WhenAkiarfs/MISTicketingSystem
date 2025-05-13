@@ -45,14 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <link rel="stylesheet" href="../asset/css/modals.css">
 
 <!--Register Asset -->
 <div class="modal fade" id="registerAssetModal" tabindex="-1" aria-labelledby="registerAssetModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="../modals/adminRegisterAsset.php" method="POST">
+            <form action="../modals/RegisterAsset.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="registerAssetModalLabel">Register a New Asset</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -60,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="BranchId" class="form-label">Branch ID</label>
+                        <label for="BranchId" class="form-label">Branch</label>
                         <select name="BranchId" id="BranchId" class="form-control rounded-pill" required>
                             <option value="">----- Select Branch -----</option>
                             <?php
@@ -108,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="AssetStatus" class="form-label">Status</label>
                             <select name="AssetStatus" id="AssetStatus" class="form-control rounded-pill" required>
                                 <option value="">-- Select Status --</option>
@@ -120,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option value="transfer request">Transfer Request</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="Acquisition" class="form-label">Acquisition</label>
                             <select name="Acquisition" id="Acquisition" class="form-control rounded-pill" required>
                                 <option value="">-- Select Acquisition --</option>

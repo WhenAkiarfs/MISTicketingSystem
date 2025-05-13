@@ -1,0 +1,66 @@
+/* TABLE CONTROLS*/
+/* SEARCH BAR */
+.input-group-text.control-btn {
+    border-top-right-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-right: none !important;
+    background-color: #3086e1 !important;
+    color: white !important;
+}
+
+.form-control {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 12px !important;
+    border-bottom-left-radius: 12px !important;
+    height: 40px;
+}
+
+/* FILTER AND SORT BUTTONS */
+.control-btn {
+    border-radius: 12px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background-color: #3086e1 !important;
+    border-color: #3086e1 !important;
+    color: white !important;
+    transition: all 0.2s ease !important;
+    padding: 6px 12px !important;
+    font-size: 15px !important;
+    white-space: nowrap;
+}
+
+.control-btn:hover, .btn-primary:hover {
+    background-color: #70abe9 !important;
+    color: white !important;
+    border-color: #70abe9 !important;
+}
+
+/* DROPDOWN MENU */
+.dropdown-menu {
+    border-radius: 12px !important;
+    min-width: 160px !important;
+}
+
+.dropdown-item {
+    border-radius: 8px !important;
+    color: #01366e !important;
+}
+
+.dropdown-item:hover {
+    background-color: #0060c7 !important;
+    color: white !important;
+}
+
+/* SEARCH, FILTER, SORT, AND ADD BUTTON*/
+.gap-2 {
+    gap: 0.5rem;
+}
+
+.me-1 { /* ICON */
+    margin-right: 0.25rem;
+}

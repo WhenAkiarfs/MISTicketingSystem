@@ -36,7 +36,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-asset-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
     <link rel ="stylesheet" href="../asset/css/modals.css">
 
@@ -73,9 +77,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="div-mods active" onclick="window.location.href='adminRegisterAsset.php'">
                     <span class="mods">Transfer Requests</span>
-                </div>
-                <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerAssetModal">
-                    <span class="mods">Register an Asset</span>
                 </div>
             </div>
 
@@ -132,8 +133,8 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <th style="width: 2.5%;">Type</th>
                                     <th style="width: 4%;">Serial Number</th>
                                     <th style="width: 2%;">Purchased Date</th>
-                                    <!-- <th>Status</th>
-                                    <th>Description</th> -->
+                                    <th>Status</th>
+                                    <th>Description</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -144,8 +145,8 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         <td><?php echo htmlspecialchars($asset['AssetTypeName']); ?></td>
                                         <td><?php echo htmlspecialchars($asset['SerialNumber']); ?></td>
                                         <td><?php echo htmlspecialchars($asset['PurchasedDate']); ?></td>
-                                        <!-- <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['Description']); ?></td> -->
+                                        <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
+                                        <td><?php echo htmlspecialchars($asset['Description']); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -156,6 +157,5 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
         </div>
     </div>
-    <?php include '../modals/adminRegisterAsset.php'; ?>
 </body>
 </html>

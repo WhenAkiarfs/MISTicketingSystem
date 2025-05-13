@@ -78,64 +78,6 @@ main {
   justify-content: space-between;
 }
 
-/*RECENT TICKET */
-.ticket-container {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  background:#0038a8;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  transition: transform 0.5s, box-shadow 0.3s;
-}
-
-.ticket-container:hover {
-  transform: translateY(-5px) scale(1.01);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
-}
-
-.ticket-header {
-  background: #0038a8;
-  color: white;
-  text-align: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
-.ticket-header h5 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.ticket-body {
-  padding: 1rem;
-  background-color: white;
-  color: #222;
-}
-
-#ticket-id, #ticket-status, #ticket-branch, 
-#ticket-issue, #ticket-date, #ticket-time  {
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.ticket-grid {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.2rem;
-  margin-bottom: 0.4rem;
-  font-size: 1rem;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.ticket-grid div {
-  flex: 1;
-}
-
 .live-card {
   position: relative;
   background: whitesmoke;

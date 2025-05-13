@@ -1,29 +1,3 @@
-<?php
-session_start();
-
-include '../Includes/check_session.php';
-include '../Includes/config.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $enteredOtp = $_POST['otp'];
-
-    // Get the stored OTP and expiry from session
-    $storedOtp = $_SESSION['otp'] ?? '';
-    $otpExpiry = $_SESSION['otp_expiry'] ?? 0;
-
-    if (time() > $otpExpiry) {
-        echo json_encode(["status" => "expired", "message" => "OTP has expired."]);
-    } elseif ($enteredOtp == $storedOtp) {
-        // Success - OTP is correct
-        echo json_encode(["status" => "success", "message" => "OTP verified successfully."]);
-        // You can now redirect to a reset password page, or set a session flag
-        $_SESSION['otp_verified'] = true;
-    } else {
-        echo json_encode(["status" => "error", "message" => "Incorrect OTP. Please try again."]);
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
