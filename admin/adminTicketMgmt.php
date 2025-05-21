@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php
@@ -14,9 +14,6 @@ if ($_SESSION['RoleId'] != 1) {
     header('Location: ../employee/home.php');
     exit();
 }
-
-
-
 
 ?>
 
@@ -204,43 +201,13 @@ if ($_SESSION['RoleId'] != 1) {
                         </thead>
                         <tbody>
                         <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1001</td>
-                                <td>Hardware</td>
-                                <td>QCPL</td>
-                                <td>-</td>
-                                <td><button type="button" class="btn btn-pending">Pending</button></td>
-                            </tr>
-                            <tr>
-                                    <td>Apr 12, 2025, 09:43:15</td>
-                                    <td>1002</td>
-                                    <td>Software</td>
-                                    <td>QCPL</td>
-                                    <td>John Doe</td>
-                                    <td>
-                                    <button type="button" class="btn btn-ongoing" id="tixStatus">On Going</button>
-                                    </td>
-                                </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1003</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Smith</td>
-                                <td>
-                                <button type="button" class="btn btn-completed" id="tixStatus">Completed</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1004</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>-</td>
-                                <td>
-                                <button type="button" class="btn btn-cancelled" id="tixStatus">Cancelled</button>
-                                </td>
-                            </tr>
+                            <td>Apr 12, 2025, 09:43:15</td>
+                            <td>1001</td>
+                            <td>Hardware</td>
+                            <td>QCPL</td>
+                            <td>-</td>
+                            <td><button type="button" class="btn btn-status">Pending</button></td>
+                        </tr>
                             <!-- Rows will be populated by JavaScript -->
                         </tbody>
                     </table>

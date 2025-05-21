@@ -69,8 +69,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="div-mods active" onclick="window.location.href='adminEmployeeList.php'">
                             <span class="mods">Employee</span>
                         </div>
-                        <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerLICModal">
-                        <span class="mods">Register an LIC</span>
+                        <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerEmpModal">
+                        <span class="mods">Register an Employee</span>
                         </div>
                     </div>
 
@@ -103,13 +103,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <table id="empTable" class="table table-striped table-bordered table-hover" id="tblEmployee">
                         <thead class="thead-dark">
                             <tr>
-                            <th>Employee ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Contact No.</th>
-                            <th>Branch</th>
-                            <!-- <th>Role</th> -->                         
+                            <th style="width:0.5%">Employee ID</th>
+                            <th style="width:1%">First Name</th>
+                            <th style="width:2%">Last Name</th>
+                            <th style="width:1%">Email</th>
+                            <th style="width:0.5%">Contact No.</th>
+                            <th style="width:4%">Branch</th>
+                            <!--th>Role</!--th>-->
+                            <th style="width:1.2%">Actions</th>                        
                         </tr>
                         </thead>
                         <tbody>
@@ -121,7 +122,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $user['Email']; ?></td>
                                     <td><?php echo $user['Contactno']; ?></td>
                                     <td><?php echo $user['BranchName']; ?></td>
-                                    <!--td><?php echo $user['RoleId']; ?></!--td>-->  
+                                    <!--td><?php echo $user['RoleId']; ?></!--td>-->
+                                    <td>
+                                        <button class="btn btn-edit btn-sm" onclick="openEditModal3(<?php echo $user['UserId']; ?>)">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">Delete</button>
+                                    </td>  
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -132,28 +137,25 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     </main>
 </div>
-    <!-- Register LIC Modal -->
-    <?php include '../modals/adminRegisterLIC.php'; ?>
-    <!-- Update LIC Modal -->
-    <?php include '../modals/adminUpdateLIC.php'; ?>
-    <!-- Delete LIC Modal -->
-    <?php include '../modals/adminDeleteLIC.php'; ?>
-
+    <?php include '../modals/RegisterEmployee.php'; ?>
+    <?php include '../modals/UpdateEmp.php'; ?>
+    <?php include '../modals/DeleteLIC.php'; ?>
+    
     <!-- External JS Files -->
     <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
+    document.getElementById('searchInput').addEventListener('keyup', function () {
     const filter = this.value.toLowerCase();
     const rows = document.querySelectorAll('#empTable tbody tr');
 
     rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
     });
-  });
-</script>
+    });
+    </script>
 </body>
 </html>

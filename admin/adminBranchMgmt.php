@@ -123,8 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fa fa-filter me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
                                 <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-location-dot me-2"></i>Branch</a></li>
                             </ul>
                         </div>
@@ -186,15 +184,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- Register LIC Modal -->
-    <?php include '../modals/adminRegisterLIC.php'; ?>
+    <?php include '../modals/RegisterLIC.php'; ?>
     <!-- Update LIC Modal -->
-    <?php include '../modals/adminUpdateLIC.php'; ?>
+    <?php include '../modals/UpdateLIC.php'; ?>
     <!-- Delete LIC Modal -->
-    <?php include '../modals/adminDeleteLIC.php'; ?>
+    <?php include '../modals/DeleteLIC.php'; ?>
 
     <!-- External JS Files -->
     <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 
     <script>
   document.getElementById('searchInput').addEventListener('keyup', function () {

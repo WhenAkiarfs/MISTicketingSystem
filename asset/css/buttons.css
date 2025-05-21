@@ -1,27 +1,37 @@
 /* TICKET STATUS BUTTONS */
-/* PENDING */
+/* FOR ALL STATUSES */
+.btn-status {
+    border-radius: 30px !important;
+    font-size: 15px !important;
+    width: 100%;
+    color: white !important;
+    font-weight: 650 !important;
+    pointer-events: none;
+}
+
 .btn-pending {
     background-color: #ffc107 !important;
-    border-radius: 30px !important;
-    font-size: 15px !important;
-    width: 70%;
-    color: white !important;
-    font-weight: 650 !important;
 }
 
-/* ONGOING */
 .btn-ongoing {
     background-color: #17a2b8 !important;
-    border-radius: 30px !important;
-    font-size: 15px !important;
-    width: 70%;
-    color: white !important;
-    font-weight: 650 !important;
 }
 
-/* COMPLETED */
+.btn-approved {
+    background-color: #0038a8 !important;
+}
+
 .btn-completed {
     background-color: #0fa100 !important;
+}
+
+.btn-cancelled, .btn-rejected {
+    background-color: #cf1127 !important;
+}
+
+/* ISSUE TYPE BUTTON */
+
+.btn-type {
     border-radius: 30px !important;
     font-size: 15px !important;
     width: 70%;
@@ -29,18 +39,32 @@
     font-weight: 650 !important;
 }
 
-/* CANCELLED */
-.btn-cancelled {
-    background-color: #cf1127 !important;
-    border-radius: 30px !important;
-    font-size: 15px !important;
-    width: 70%;
+.btn-software {
+    background-color: #fca335 !important;
+}
+
+.btn-hardware {
+    background-color: #c17cfc !important;
+}
+
+/* EDIT AND DELETE BUTTONS */
+.btn-edit, .btn-danger {
+    border-radius: 5px !important;
     color: white !important;
-    font-weight: 650 !important;
+    font-weight: 500 !important;
+    border: none !important;
+}
+
+.btn-edit {
+    background-color: #0060c7 !important;
+}
+
+.btn-danger {
+    background-color: #ff0000 !important;;
 }
 
 /* SUBMIT A TICKET */
-.btn-submit {
+.btn-submit, .btn-accept {
     background-color: #0060c7 !important;
     border-radius: 30px !important;
     font-size: 17px !important;
@@ -72,20 +96,4 @@
     font-weight: 600 !important;
     height: 2.4rem !important;
     color: white !important;
-}
-
-/* EDIT AND DELETE BUTTONS */
-.btn-edit, .btn-danger {
-    border-radius: 5px !important;
-    color: white !important;
-    font-weight: 500 !important;
-    border: none !important;
-}
-
-.btn-edit {
-    background-color: #0060c7 !important;
-}
-
-.btn-danger {
-    background-color: #ff0000 !important;;
 }

@@ -7,17 +7,17 @@ if (isset($_SESSION['success_message'])) {
 }
 
 
-//IT staff table 
-$sql = "SELECT * FROM t_users WHERE RoleId=2" ;
+// Employee table 
+$sql = "SELECT * FROM t_users WHERE RoleId=4" ;
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//update IT staff
+// update Employee
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    $sql = "SELECT * FROM t_users WHERE UserId = :id and RoleId=2";
+    $sql = "SELECT * FROM t_users WHERE UserId = :id and RoleId=4";
     $stmt = $conn->prepare($sql);
     $stmt->execute(['id' => $id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -41,18 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     $_SESSION['success_message'] = "Successfully updated account!";
-    header("Location: ../admin/ManageIT.php ");
+    header("Location: ../admin/adminEmployeeList.php ");
     exit();
 }
 ?>
 
-<!-- Update LIC Modal -->
-<div class="modal fade" id="updateLICModal" tabindex="-1" aria-labelledby="updateLICModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<!-- Update Employee Modal -->
+<div class="modal fade" id="updateEmpModal" tabindex="-1" aria-labelledby="updateEmpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
         <form action="register.php" method="POST">
             <div class="modal-header">
-            <h5 class="modal-title" id="updateLICModalLabel">Update Information</h5>
+            <h5 class="modal-title" id="updateEmpModalLabel">Update Employee Information</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -77,14 +77,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="email" name="email" class="form-control rounded-pill" value="<?php echo $user['Email']; ?>" required>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Contact No</label>
-                    <input type="text" name="contactno" class="form-control rounded-pill" value="<?php echo $user['Contactno']; ?>" required>
+                    <label class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control rounded-pill" required>
                 </div>
                 </div>
 
+                <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Contact No</label>
+                    <input type="text" name="contactno" class="form-control rounded-pill" value="<?php echo $user['Contactno']; ?>" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role_id" id="role" class="form-select rounded-pill" rows="3">
+                        <option value="" default></option>
+                        <!--?php 
+                        $stmt = $conn->query("SELECT r.RoleName 
+                                                    FROM t_roles 
+                                                    WHERE RoleId == 2");
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['RoleId'] . '">' . $row['RoleName'] . '</option>';
+                        }
+                        ?>-->
+                    </select>
+                </div>
+                </div>
+                
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
             </div>
@@ -131,13 +152,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-
-<!--[DRAFT]form method="POST">
-<input type="hidden" name="id" value="<!?php echo $user['UserId']; ?>">
-First Name: <input type="text" name="first_name" value="<!?php echo $user['FirstName']; ?>" required><br>
-Last Name: <input type="text" name="last_name" value="<!?php echo $user['LastName']; ?>" required><br>
-Email: <input type="email" name="email" value="<!?php echo $user['Email']; ?>" required><br>
-Contact No: <input type="text" name="contactno" value="<!?php echo $user['Contactno']; ?>" required><br>
-<button type="submit">Update</button>
-<a href="../admin/adminBranchMgmt.php"> Back</a>
-</!-->

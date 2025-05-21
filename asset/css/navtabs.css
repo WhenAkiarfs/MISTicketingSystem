@@ -42,16 +42,42 @@
     box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-/* View All Tickets Link */
-.view {
-    align-self: flex-end; 
-    padding-bottom: 7px;
+#branchDropdown {
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-.view a {
-    color: #0060c7;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 450;
-    transition: color 0.3s ease;
+#branchSearchInput {
+    border-radius: 8px;
+}
+
+.branch-filter .filter-btn, .branch-filter .filter-btn:hover {
+    border-radius: 50px;
+    font-weight: 500;
+    background-color: #0060c7;
+    color: white;
+    border: 1px solid #0060c7;
+}
+
+.dropdown-menu {
+    border-radius: 12px !important;
+    min-width: 160px !important;
+}
+
+.dropdown-item {
+    border-radius: 8px !important;
+    color: #01366e !important;
+}
+
+.dropdown-item:hover {
+    background-color: #0060c7 !important;
+    color: white !important;
+}
+
+.view-tix-btn, .view-tix-btn:hover {
+    border-radius: 50px !important;
+    font-weight: 500 !important;
+    background-color:#d7e7ff !important;
+    color: #0052aa !important;
+    border: 1px solid #d7e7ff !important;
 }

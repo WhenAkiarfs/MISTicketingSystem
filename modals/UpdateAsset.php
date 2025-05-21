@@ -35,10 +35,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bindParam(':Description', $Description);
 
     if ($stmt->execute()) {
-        header("Location: ../admin/adminAssetMgmt.php?success=1");
+        // Redirect based on RoleId
+        if (isset($_SESSION['RoleId']) && $_SESSION['RoleId'] == 2) {
+            header("Location: ../lic/licAssetMgmt.php?success=1");
+        } else {
+            // Default to admin
+            header("Location: ../admin/adminAssetMgmt.php?success=1");
+        }
         exit();
     } else {
-        echo "Error: Unable to register asset.<br>";
+        echo "Error: Unable to update asset.<br>";
         print_r($stmt->errorInfo());
     }
     
@@ -47,41 +53,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <link rel="stylesheet" href="../asset/css/modals.css">
 
-<!--Register Asset -->
-<div class="modal fade" id="registerAssetModal" tabindex="-1" aria-labelledby="registerAssetModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<!-- Update Asset -->
+<div class="modal fade" id="updateAssetModal" tabindex="-1" aria-labelledby="updateAssetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <form action="../modals/RegisterAsset.php" method="POST">
+            <form action="../modals/UpdateAsset.php" method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registerAssetModalLabel">Register a New Asset</h5>
+                    <h5 class="modal-title" id="updateAssetModalLabel">Update Asset Information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label for="BranchId" class="form-label">Branch</label>
-                            <select name="BranchId" id="BranchId" class="form-control rounded-pill" required>
-                                <option value="" default></option>
-                                <?php
-                                    include '../Includes/config.php';
-                                    $stmt = $conn->query("SELECT BranchId, BranchName FROM t_branch");
-                                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                        echo '<option value="' . $row['BranchId'] . '">' . $row['BranchName'] . '</option>';
-                                    }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="AssetName" class="form-label">Asset Name</label>
-                            <input type="text" name="AssetName" id="AssetName" class="form-control rounded-pill" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="BranchId" class="form-label">Branch</label>
+                        <input type="text" name="BranchId" id="BranchId" class="form-control rounded-pill" read-only>
+                        </input>
                     </div>
+
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <label for="assetName" class="form-label">Asset Name</label>
+                            <input type="text" name="AssetName" id="assetName" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="col-md-6">
                             <label for="AssetTypeId" class="form-label">Asset Type</label>
-                            <select name="AssetTypeId" id="AssetTypeId" class="form-select rounded-pill" required>
-                                <option value="" default></option>
+                            <select name="AssetTypeId" id="AssetTypeId" class="form-control rounded-pill" required>
+                                <option value="">------ Select Asset Type -----</option>
                                 <?php 
                                     $stmt = $conn->query("SELECT AssetTypeId, AssetTypeName FROM t_assettype");
                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -90,7 +87,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                             </select>
                         </div>
+                    </div>
+
+                    <div class="row mb-3">
                         <div class="col-md-4">
+                            <label for="SerialNumber" class="form-label">Serial Number</label>
+                            <input type="text" name="SerialNumber" id="SerialNumber" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="PropertyNumber" class="form-label">Property Number</label>
+                            <input type="text" name="PropertyNumber" id="PropertyNumber" class="form-control rounded-pill" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="PurchasedDate" class="form-label">Purchased Date</label>
+                            <input type="date" name="PurchasedDate" id="PurchasedDate" class="form-control rounded-pill" required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
                             <label for="AssetStatus" class="form-label">Status</label>
                             <select name="AssetStatus" id="AssetStatus" class="form-select rounded-pill" required>
                                 <option value="" default></option>
@@ -102,21 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <option value="transfer request">Transfer Request</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <label for="PurchasedDate" class="form-label">Purchased Date</label>
-                            <input type="date" name="PurchasedDate" id="PurchasedDate" class="form-control rounded-pill" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="SerialNumber" class="form-label">Serial Number</label>
-                            <input type="text" name="SerialNumber" id="SerialNumber" class="form-control rounded-pill" required>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="PropertyNumber" class="form-label">Property Number</label>
-                            <input type="text" name="PropertyNumber" id="PropertyNumber" class="form-control rounded-pill" required>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label for="Acquisition" class="form-label">Acquisition</label>
                             <select name="Acquisition" id="Acquisition" class="form-select rounded-pill" required>
                                 <option value="" default></option>
@@ -125,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </select>
                         </div>
                     </div>
+
                     <div class="mb-3">
                         <label for="Description" class="form-label">Description</label>
                         <textarea name="Description" id="Description" class="form-control" rows="3"></textarea>
@@ -133,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Register Asset</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

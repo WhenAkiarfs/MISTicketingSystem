@@ -1,6 +1,6 @@
 <?php
-include 'Includes/config.php';
-include 'Includes/check_session.php';
+include '../Includes/config.php';
+include '../Includes/check_session.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Get POST data

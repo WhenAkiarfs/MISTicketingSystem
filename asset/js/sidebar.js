@@ -11,15 +11,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Map file names to sidebar anchors (match base menu pages only)
     const pageMap = {
-        dashboard: ['admindashboard.php', 'ITdashboard.php', 'bradmindashboard.php', 'home.php'],
+        dashboard: ['admindashboard.php', 'ITdashboard.php', 'licDashboard.php', 'home.php'],
         tickets: ['adminTicketMgmt.php', 'adminCompletedTickets.php', 'adminArchivedTickets.php',
-                    'ITticketMgmt.php', 'bradminTicketMgmt.php', 'empTicketMgmt.php', 'empCompletedTickets.php',
+                    'ITticketMgmt.php', 'licTicketMgmt.php', 'licCompletedTickets.php', 
+                    'licArchivedTickets.php', 'empTicketMgmt.php', 'empCompletedTickets.php',
                     'empArchivedTickets.php'],
         assets: ['adminAssetMgmt.php', 'adminTransferRequestsList.php',
-                    'ITassetMgmt.php', 'bradminAssetMgmt.php', 'empAssetMgmt.php'],
+                    'ITassetMgmt.php', 'ITtransferRequestsList.php', 'licAssetMgmt.php',
+                    'licTransferRequestsList.php', 'empAssetMgmt.php'],
         staff: ['adminStaffMgmt.php'],
-        branches: ['adminBranchMgmt.php', 'adminEmployeeList.php', 'ITbranchMgmt.php'],
-        employees: ['bradminEmployeeMgmt.php'], // for LIC
+        branches: ['adminBranchMgmt.php', 'adminEmployeeList.php', 'ITbranchMgmt.php', 'ITEmployeeList.php'],
+        employees: ['licEmployeeMgmt.php'], // for LIC
         activity: ['activityLogs.php']
     };
 

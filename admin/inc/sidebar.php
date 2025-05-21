@@ -108,25 +108,25 @@ $roleId = $_SESSION['RoleId'];
                     <!-- Branch Admin / LIC -->
                     <?php elseif ($roleId == 2): ?>
                         <li class="sidebar-item default">
-                            <a href="/branchadmin/bradmindashboard.php">
+                            <a href="/branchadmin/licDashboard.php">
                                 <span class="icon"><i class="fa fa-house"></i></span>
                                 <span class="text">Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/branchadmin/bradminTicketMgmt.php">
+                            <a href="/branchadmin/licTicketMgmt.php">
                                 <span class="icon"><i class="fa fa-ticket"></i></span>
                                 <span class="text">Tickets</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/branchadmin/bradminAssetMgmt.php">
+                            <a href="/branchadmin/licAssetMgmt.php">
                                 <span class="icon"><i class="fa fa-toolbox"></i></span>
                                 <span class="text">Assets</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/branchadmin/bradminEmployeeMgmt.php">
+                            <a href="/branchadmin/licEmployeeMgmt.php">
                                 <span class="icon"><i class="fa fa-users"></i></span>
                                 <span class="text">Employees</span>
                             </a>

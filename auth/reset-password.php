@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Reset Password</title>
     <link rel="icon" type="image/x-icon" href="asset/img/qcpl-logo.png">
 
     <!-- Bootstrap 5 CDN -->
@@ -61,21 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../asset/css/reset-password.css"> 
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card">
+            <div class="mt-4">
+                <a href="../index.php" class="link">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 14px;"></i> Back to Login
+                </a>
+            </div>
             <div class="card-body">
                 <div class="text-center mb-5">
                     <img src="../asset/img/qcpl-sts-logo.png" alt="QCPL Logo" class="logo" width="80px">
-                    <h3 class="text-center mt-0">QCPL STS</h3>
+                    <h5 class="text-center mt-3">QCPL STS</h5>
                     <h4 class="text-center mt-0">Reset Your Password</h4><br>
                 </div>
 
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger"><?php echo $error_message; ?></div>
                 <?php endif; ?>
-
+                
                 <form action="../auth/reset-password.php" method="POST">
                     <div class="form-group">
                         <input type="password" id="new_password" class="form-control custom-input" name="new_password" placeholder="Enter New Password" required>
@@ -84,11 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="form-group mt-3">
                         <input type="password" class="form-control custom-input" name="confirm_password" placeholder="Confirm New Password" required>
                     </div>
+
+                    <div class="text-center mt-2">
                     <button type="submit" class="btn btn-primary w-100 mt-3">Reset Password</button>
+                    </div>
                 </form>
-                <div class="text-center mt-3">
-                    <a href="../auth/login.php" class="links">Back to Login</a>
-                </div>
             </div>
         </div>
     </div>

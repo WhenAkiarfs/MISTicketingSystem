@@ -40,7 +40,7 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Redirect link based on role
 $redirectLink = match ($roleId) {
     1 => '../admin/admindashboard.php',
-    2 => '../branchadmin/bradmindashboard.php',
+    2 => '../branchadmin/licDashboard.php',
     3 => '../ITstaff/ITdashboard.php',
     default => '../employee/home.php',
 };
@@ -145,7 +145,7 @@ $redirectLink = match ($roleId) {
                         </div>
                         <div class="col-6">
                             <div class="d-flex flex-wrap align-items-center justify-content-end">
-                                <?php if ($roleId == 1 && $roleId == 3): ?>
+                                <?php if ($roleId == 1 || $roleId == 3): ?>
                                     <button class="btn btn-download" type="button" data-bs-toggle="modal" data-bs-target="#downloadReportModal">
                                         <i class="fa-solid fa-download me-1"></i> Download Report
                                     </button>
@@ -194,7 +194,7 @@ $redirectLink = match ($roleId) {
     </div>
 
     <!-- Download Report Modal -->
-    <!?php include '../admin/modals/adminDownloadReport.php'; ?>
+    <?php include '../admin/modals/DownloadReport.php'; ?>
 
     <script>
   document.getElementById('searchInput').addEventListener('keyup', function () {

@@ -135,10 +135,10 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <th style="width: 2.5%;">Brand</th>
                                     <th style="width: 3%;">Serial Number</th>
                                     <th style="width: 3%;">Property Number</th>
-                                    <th style="width: 3%;">Acquisition</th>
+                                    <th style="width: 2%;">Acquisition</th>
                                     <th style="width: 2%;">Purchased Date</th>
                                     <th style="width: 2%;">Status</th>
-                                    <th style="width: 2%;">Description</th>
+                                    <th style="width: 2%;">Tool</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -156,7 +156,21 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo htmlspecialchars($asset['Acquisition']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['PurchasedDate']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['Description']); ?></td>
+                                            <td>
+                                            <!-- Edit Button -->
+                                            <button 
+                                                class="btn btn-edit btn-sm" 
+                                                onclick="openUpdateModal3(<?php echo $user['AssetId']; ?>)">
+                                                Edit
+                                            </button>
+                                            <!-- Delete Button -->
+                                            <button 
+                                                class="btn btn-danger btn-sm" 
+                                                onclick="openDeleteModal2(<?php echo $user['AssetId']; ?>)">
+                                                Delete
+                                            </button>
+                                            </td>
+                                            
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -169,18 +183,19 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     <?php include '../modals/RegisterAsset.php'; ?>
-
+    <?php include '../modals/UpdateAsset.php'; ?>
+    <script src="../asset/js/fetchModal.js"></script>
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#assetTable tbody tr');
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#assetTable tbody tr');
 
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        rows.forEach(row => {
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
+        });
     });
-  });
 </script>
 </body>
 

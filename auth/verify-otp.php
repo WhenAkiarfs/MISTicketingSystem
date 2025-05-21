@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../asset/css/verify-otp.css"> 
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
 </head>
 
 <body>
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="card-body">
                 <div class="text-center mb-5 logo">
                     <img src="../asset/img/qcpl-sts-logo.png" alt="QCPL Logo" class="logo" width="80px">
-                    <h3 class="text-center mt-0">QCPL STS</h3>
+                    <h5 class="text-center mt-3">QCPL STS</h5>
                     <h4 class="text-center mt-0">Verify OTP</h4>
                 </div>
                 
@@ -60,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mt-3">Verify OTP</button>
                     <button id="resend-otp-btn" class="btn btn-light w-100 mt-3"
-                        style="background-color: #b9c5d7; color: #003194; border: none;" disabled>Send Another Code
+                        style="background-color: #ced3db; color: #002774; border: none;" disabled>Send Another Code
                         (<span id="timer">60</span>s)
                     </button>
                 </form>

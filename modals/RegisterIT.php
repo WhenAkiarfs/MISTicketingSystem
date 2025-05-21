@@ -22,7 +22,7 @@ if (isset($_SESSION['success_message'])): ?>
 
 <!-- Register IT Modal -->
     <div class="modal fade" id="registerITModal" tabindex="-1" aria-labelledby="registerITModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
         <form action="../admin/register.php" method="POST">
             <div class="modal-header">
@@ -55,31 +55,38 @@ if (isset($_SESSION['success_message'])): ?>
 
                 <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="branchID" class="form-label">Branch ID</label>
-                    <select name="branch_id" id="BranchiD" class="form-control rounded-pill" required>
-                        <option value="">----- Select Branch -----</option>
-                        <option value="">-- Select Branch --</option>
-                            <?php
-                            $stmt = $conn->query("SELECT b.BranchId, b.BranchName, b.DistrictId, d.DistrictName 
-                                                    FROM t_branch b
-                                                    JOIN t_district d ON b.DistrictId = d.DistrictId");
-                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                echo '<option value="' . $row['BranchId'] . '" data-district="' . $row['DistrictId'] . '">' .
+                    <label for="branchID" class="form-label">Branch</label>
+                    <select name="branch_id" id="BranchiD" class="form-select rounded-pill" required>
+                    <option value="" default></option>
+                        <?php
+                        // This query joins branch with district to get names
+                        $stmt = $conn->query("SELECT b.BranchId, b.BranchName, b.DistrictId, d.DistrictName 
+                                            FROM t_branch b
+                                            JOIN t_district d ON b.DistrictId = d.DistrictId");
+
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['BranchId'] . '" data-district="' . $row['DistrictId'] . '">' .
                                     $row['BranchName'] . ' (' . $row['DistrictName'] . ')' .
-                                    '</option>';
-                            }
-                            ?>
-                    </select> 
+                                '</option>';
+                        }
+                        ?>
+                    </select>
                     <input type="hidden" name="district_id" id="district_id">
                 </div>
-               
+                <div class="col-md-6">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role_id" id="role" class="form-control rounded-pill" rows="3">
+                        <option value="" default></option>
+                        <!--?php 
+                        $stmt = $conn->query("SELECT r.RoleName 
+                                                    FROM t_roles 
+                                                    WHERE RoleId == 2");
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="' . $row['RoleId'] . '">' . $row['RoleName'] . '</option>';
+                        }
+                        ?>-->
+                    </select>
                 </div>
-
-                <div class="mb-3">
-                <label for="role" class="form-label">Role</label>
-                <select name="role_id" id="role" class="form-control rounded-pill" rows="3">
-                    <option value="3">IT Staff</option>
-                </select>
                 </div>
 
                 <div class="row mb-3" id="admin_fields" style="display:none;">

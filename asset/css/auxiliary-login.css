@@ -1,0 +1,115 @@
+/*  import google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* LOGIN PAGE */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to left, rgba(0, 56, 168, 0.7), rgba(125, 162, 225, 0.702));
+}
+
+.card {
+    background-color: #fafafa;
+    border-radius: 20px;
+    padding-bottom: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.custom-input {
+    border-radius: 18px;
+    background-color: #fafafa;
+    font-size: 15px;
+    width: 100%;
+    height: 2.4rem;
+}
+
+.custom-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.form-label {
+    color: #013395;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+h2, h4, h5{
+    font-weight: bold;
+    color: #0136a0;
+}
+
+h5 {
+    font-size: 1.2rem;
+    position: absolute;
+    left: 8rem;
+    right: 8rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+    position: relative;
+    top: 2.7rem;
+}
+
+/* REQUEST ACCOUNT HEADER */
+.rq-header h5,
+.rq-header h4 {
+    position: static !important;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin: 0;
+}
+
+.rq-header h5 {
+    margin-bottom: 0.3rem;
+}
+
+.rq-header h4 {
+    margin-bottom: 1rem;
+}
+
+.btn {
+    background-color: #0038a8;
+    border-radius: 30px;
+    font-size: 15px;
+    height: 2.45rem;
+    margin-top: 3rem;
+    color: white;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background-color: #024adc;
+}
+
+.link, .link-fp {
+    text-decoration: none;
+    color: #0038a8;
+    font-weight: 500;
+}
+
+.link {
+    font-size: 1rem;
+}
+
+.link-fp {
+    font-size: 0.9rem;
+}
+
+.link:hover, .link-fp:hover {
+    color: #024adc;
+}
+
+.success {
+    color: green;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    margin-top: 1em;
+    text-align: center;
+}

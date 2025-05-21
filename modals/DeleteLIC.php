@@ -79,7 +79,7 @@ if (isset($_GET['id'])) {
       <div class="modal-body text-center">
         <i class="fa-regular fa-circle-check md-icon"></i>
         <h2 class="modal-title">Successfully Deleted</h2>
-        <p>You have successfully deleted an IT Staff Account.</p>
+        <p>You have successfully deleted an LIC Account.</p>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

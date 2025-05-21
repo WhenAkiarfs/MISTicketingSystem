@@ -20,6 +20,7 @@ include '../Includes/check_session.php';
     <link rel="stylesheet" href="../asset/css/ticket-cards.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
     <link rel="stylesheet" href="../asset/css/buttons.css">
 
     <!-- Bootstrap CSS -->
@@ -37,6 +38,8 @@ include '../Includes/check_session.php';
     <!-- External JS Link/s -->
     <script src="../asset/js/sidebar.js"></script>
     <script src="../asset/js/greetingCard.js"></script>
+    <script src="../asset/js/recentTicket.js"></script>
+    <script src="../asset/js/ticketSummary.js"></script>
     <script src="../asset/js/adminNavTables.js"></script>
 </head>
 
@@ -105,6 +108,8 @@ include '../Includes/check_session.php';
             </main>
         </div>
     </div>
+
+    
 </body>
 </html>
 
