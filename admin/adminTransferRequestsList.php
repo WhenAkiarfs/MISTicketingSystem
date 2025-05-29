@@ -36,7 +36,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-asset-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
     <link rel ="stylesheet" href="../asset/css/modals.css">
 
@@ -71,11 +75,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="div-mods inactive" onclick="window.location.href='adminAssetMgmt.php'">
                     <span class="mods">All Assets</span>
                 </div>
-                <div class="div-mods active" onclick="window.location.href='adminRegisterAsset.php'">
+                <div class="div-mods active" onclick="window.location.href='adminTransferRequestsList.php'">
                     <span class="mods">Transfer Requests</span>
                 </div>
-                <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerAssetModal">
-                    <span class="mods">Register an Asset</span>
+                <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#transferAssetModal">
+                    <span class="mods">Transfer an Asset</span>
                 </div>
             </div>
 
@@ -100,7 +104,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fa fa-filter me-1"></i>
                 </button>
                 <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                    <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-book-open me-2"></i>Branch</a></li>
                 </ul>
@@ -120,34 +123,40 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         </div>
 
-        <!-- Table for displaying assets -->
+        <!-- Table for displaying transfer requests -->
             <div class="row no-gutters mt-4">
                 <div class="col-12">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
-                            <thead>
+                        <thead>
                                 <tr>
-                                    <th style="width: 4%;">Branch</th>
-                                    <th style="width: 2.5%;">Brand</th>
-                                    <th style="width: 2.5%;">Type</th>
-                                    <th style="width: 4%;">Serial Number</th>
-                                    <th style="width: 2%;">Purchased Date</th>
-                                    <!-- <th>Status</th>
-                                    <th>Description</th> -->
+                                    <th style="width: 1%;">Request ID</th>
+                                    <th style="width: 2%;">Asset Name</th>
+                                    <th style="width: 3%;">Dispatching Branch</th>
+                                    <th style="width: 3%;">Receiving Branch</th>
+                                    <th style="width: 1%;">Requested Date</th>
+                                    <th style="width: 2%;">Requested By</th>
+                                    <th style="width: 2%;">Status</th>                               
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($assets as $asset): ?>
+                                <?php if (empty($assets)): ?>
                                     <tr>
-                                        <td><?php echo htmlspecialchars($asset['BranchName']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['AssetName']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['AssetTypeName']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['SerialNumber']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['PurchasedDate']); ?></td>
-                                        <!-- <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
-                                        <td><?php echo htmlspecialchars($asset['Description']); ?></td> -->
+                                    <td colspan="8">No transfer requests found.</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php foreach ($assets as $asset): ?>
+                                        <tr>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -156,6 +165,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
         </div>
     </div>
-    <?php include '../modals/adminRegisterAsset.php'; ?>
+    <?php include '../modals/TransferAsset.php'; ?>
 </body>
 </html>

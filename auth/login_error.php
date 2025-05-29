@@ -63,132 +63,90 @@ if (isset($_POST['request_account'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Account</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: hsla(208, 43.10%, 74.50%, 0.78);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+    <link rel="icon" type="image/x-icon" href="asset/img/qcpl-sts-logo.png">
 
-        .request-box {
-            background: #fff;
-            padding: 2em;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.15);
-            width: 100%;
-            max-width: 500px;
-        }
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        h2 {
-            text-align: center;
-            color: rgb(32, 32, 160);
-        }
-        p{
-            text-align: center;
-        }
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-        form > div {
-            margin-bottom: 1em;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.3em;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 0.5em;
-            border: 1px solid #999;
-            border-radius: 5px;
-        }
-
-        button {
-            width: 100%;
-            padding: 0.7em;
-            background: rgb(32, 32, 160);
-            color: white;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .success {
-            color: green;
-            margin-top: 1em;
-            text-align: center;
-        }
-
-        .error {
-            color: red;
-            margin-top: 1em;
-            text-align: center;
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
 </head>
+
 <body>
-    <div class="request-box">
-    <h2>Login Failed</h2>
-        <p>Please input proper credentials.</p>
-        <p>If you don't have an account, you can request one here:</p>
-        <form method="post">
-            <div>
-                <label for="user_email">Email</label>
-                <input type="email" name="user_email" required>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card" style="width: 100%; max-width: 500px;">
+            <div class="text-left mt-4">
+                <a href="../index.php" class="link">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 14px;"></i> Back to Login
+                </a>
             </div>
+            <div class="card-body">
+                <div class="text-center mt-2 logo rq-header">
+                    <img src="../asset/img/qcpl-sts-logo.png" alt="QCPL Logo" class="logo" width="70px">
+                    <h5 class="mt-3">QCPL STS</h5>
+                    <h4 class="mt-0">Request an Account</h4>
+                </div>
 
-            <div>
-                <label for="contact_no">Contact Number</label>
-                <input type="text" name="contact_no" required>
+                <!-- Success & Error Message Alerts -->
+                <?php
+                if (isset($_SESSION['success_message'])) {
+                    echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+                    unset($_SESSION['success_message']);
+                }
+                if (isset($_SESSION['error_message'])) {
+                    echo '<div class="alert alert-danger">' . $_SESSION['error_message'] . '</div>';
+                    unset($_SESSION['error_message']);
+                }
+                ?>
+
+                <!-- Request Account Form -->
+                <form method="POST">
+                    <div class="mb-3" id="user_email">
+                        <label for="user_email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control custom-input" name="user_email" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="contact_no" class="form-label">Contact Number</label>
+                            <input type="text" class="form-control custom-input" name="contact_no" placeholder="Enter your contact number"required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="account_type" class="form-label">Account Type</label>
+                            <select class="form-select custom-input" name="account_type" required>
+                                <option value="-- Select Type --" default></option>
+                                <option value="employee">Employee</option>
+                                <option value="branchadmin">Branch Admin</option>
+                                <option value="it">IT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="branch_id" class="form-label">Branch</label>
+                        <select class="form-select custom-input" name="branch_id" required>
+                            <option value="-- Select Branch --" default></option>
+                            <?php
+                            $stmt = $conn->query("SELECT b.BranchId, b.BranchName, d.DistrictName 
+                                                FROM t_branch b
+                                                JOIN t_district d ON b.DistrictId = d.DistrictId");
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                echo '<option value="' . $row['BranchId'] . '">' .
+                                    htmlspecialchars($row['BranchName']) . ' (' . htmlspecialchars($row['DistrictName']) . ')</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <button type="submit" name="request_account" class="btn btn-primary w-100 mt-2">Request Account</button>
+                </form>
             </div>
-
-            <div>
-                <label for="account_type">Account Type</label>
-                <select name="account_type" id="account_type" required>
-                    <option value="">-- Select Type --</option>
-                    <option value="employee">Employee</option>
-                    <option value="branchadmin">Branch Admin</option>
-                    <option value="it">IT</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="branch_id">Select Branch</label>
-                <select name="branch_id" required>
-                    <option value="">-- Select Branch --</option>
-                    <?php
-                    $stmt = $conn->query("SELECT b.BranchId, b.BranchName, d.DistrictName 
-                                          FROM t_branch b
-                                          JOIN t_district d ON b.DistrictId = d.DistrictId");
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo '<option value="' . $row['BranchId'] . '">' .
-                             $row['BranchName'] . ' (' . $row['DistrictName'] . ')</option>';
-                    }
-                    ?>
-                </select>
-            </div>
-
-            <button type="submit" name="request_account">Request Account</button>
-        </form>
-
-        <?php
-        if (isset($_SESSION['success_message'])) {
-            echo '<p class="success">' . $_SESSION['success_message'] . '</p>';
-            unset($_SESSION['success_message']);
-        }
-        if (isset($_SESSION['error_message'])) {
-            echo '<p class="error">' . $_SESSION['error_message'] . '</p>';
-            unset($_SESSION['error_message']);
-        }
-        ?>
-
-        <br><br>
-        <div style="text-align:center;">
-            <a href="../index.php">Back to Login</a>
         </div>
     </div>
 </body>

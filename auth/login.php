@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../Includes/config.php'; // Siguraduhin ang tamang path
+include '../Includes/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
@@ -23,13 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $logStmt = $conn->prepare($logSql);
         $logStmt->execute(['UserId' => $user['UserId']]);
 
-
         // Redirect based on role
         if ($user['RoleId'] == 1) {
             header('Location: ../admin/admindashboard.php');
             exit();
         } elseif ($user['RoleId'] == 2) {
-            header('Location: ../branchadmin/bradmindashboard.php');
+            header('Location: ../branchadmin/licDashboard.php');
             exit();
         } elseif ($user['RoleId'] == 3) {
             header('Location: ../ITstaff/ITdashboard.php');
@@ -44,13 +43,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-       
-
-
-        
-
-
-
-
-   

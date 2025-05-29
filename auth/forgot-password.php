@@ -34,14 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
-    <link rel="icon" type="image/x-icon" href="asset/img/qcpl-logo.png">
+    <link rel="icon" type="image/x-icon" href="asset/img/qcpl-sts-logo.png">
 
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,16 +50,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../asset/css/forgot-pass.css"> 
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
 </head>
 
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card">
+            <div class="text-left mt-2">
+                <a href="../index.php" class="link">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 14px;"></i> Back to Login
+                </a>
+            </div>
             <div class="card-body">
-                <div class="text-center mb-5 logo">
+                <div class="text-center mt-3 logo">
                     <img src="../asset/img/qcpl-sts-logo.png" alt="QCPL Logo" class="logo" width="80px">
-                    <h3 class="text-center mt-0">QCPL STS</h3>
-                    <h4 class="text-center mt-0">Forgot Password</h4>
+                    <h5 class="text-center mt-3">QCPL STS</h5>
+                    <h4 class="text-center mt-1">Forgot Password</h4>
                 </div>
                 <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
                 
@@ -68,17 +73,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <input type="email" class="form-control custom-input" id="email" name="email" placeholder="Enter Email Address" required>
                     </div>
+                
+                <div class="text-center mt-2">
                     <button type="submit" class="btn btn-primary w-100 mt-3">Send OTP</button>
-                </form>
-                <div class="text-center mt-3">
-                    <a href="../index.php" class="links">Back to Login</a>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script src="../asset/js/reset-password.js"></script>
 </body>
-
-
 </html>

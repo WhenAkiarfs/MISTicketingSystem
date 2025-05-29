@@ -1,17 +1,9 @@
 <?php
-// ticketDetails.php
 session_start();
 include '../Includes/config.php'; // Assumes $conn is a PDO instance
-
-
-
-
-
 $ticketId = $_GET['id'] ?? null;
 
 if ($ticketId) $ticketId = $_GET['id'] ?? null;
-
-
 
 if ($ticketId) {
     $sql = "SELECT 
@@ -50,9 +42,6 @@ $loggedInRoleId = $_SESSION['RoleId'];
 
 ?>
 
-
-
-
 <?php if (!empty($ticketDetails)): ?>
     <?php $first = $ticketDetails[0]; ?>
     <h2>Ticket Details - #<?php echo htmlspecialchars($first['TicketId']); ?></h2>
@@ -80,8 +69,6 @@ $loggedInRoleId = $_SESSION['RoleId'];
         <button type="submit" name="action" value="reject" class="btn btn-danger">Reject</button>
     </form>
 
-  
- 
 <?php else: ?>
     <p>Ticket not found.</p>
 <?php endif; ?>

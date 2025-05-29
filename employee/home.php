@@ -1,9 +1,14 @@
 <script>
-  var pageTitle = "Dashboard";
+    var pageTitle = "Dashboard";
 </script>
 
 <?php
 include '../Includes/check_session.php';
+
+if ($_SESSION['RoleId'] != 4) {
+    header('Location: ..auth/login_error.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -21,8 +26,7 @@ include '../Includes/check_session.php';
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
     <link rel="stylesheet" href="../asset/css/tbl-controls.css">
-    <link rel="stylesheet" href="../asset/css/buttons.css">
-
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -41,6 +45,7 @@ include '../Includes/check_session.php';
     <script src="../asset/js/recentTicket.js"></script>
     <script src="../asset/js/ticketSummary.js"></script>
     <script src="../asset/js/adminNavTables.js"></script>
+
 </head>
 
 <body>
@@ -108,22 +113,5 @@ include '../Includes/check_session.php';
             </main>
         </div>
     </div>
-
-    
 </body>
 </html>
-
-<!--DOCTYPE html>
-<html>
-<head>
-    <title>User Home</title>
-</head>
-<body>
-
-<h2>Welcome, <!?php echo $_SESSION['FirstName']; ?>!</h2>
-<p>You are logged in as a regular user.</p>
-<a href="../auth/logout.php">Logout</a>
-<a href="../submitTicket.php">Ticket</a>
-
-</body>
-</html>-->

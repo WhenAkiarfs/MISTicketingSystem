@@ -60,14 +60,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- Left: Asset Management -->
             <!-- Tabs Section -->
             <div class="d-flex flex-wrap gap-2">
-                <div class="div-mods inactive" onclick="window.location.href='empAssetMgmt.php'">
+                <div class="div-mods inactive" onclick="window.location.href='licAssetMgmt.php'">
                     <span class="mods">All Assets</span>
                 </div>
-                <div class="div-mods active" onclick="window.location.href='empTransferRequestsList.php'">
+                <div class="div-mods active" onclick="window.location.href='licTransferRequestsList.php'">
                     <span class="mods">Transfer Requests</span>
-                </div>
-                <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#transferAssetModal">
-                    <span class="mods">Transfer an Asset</span>
                 </div>
             </div>
 
@@ -111,39 +108,37 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         </div>
 
-        <!-- Table for displaying assets -->
+        <!-- Table for displaying transfer requests -->
             <div class="row no-gutters mt-4">
                 <div class="col-12">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th style="width: 2.5%;">Asset ID</th>
-                                    <th style="width: 3%;">Brand</th>
-                                    <th style="width: 3%;">Serial Number</th>
-                                    <th style="width: 3%;">Property Number</th>
-                                    <th style="width: 3%;">Acquisition</th>
-                                    <th style="width: 2%;">Purchased Date</th>
-                                    <th style="width: 2%;">Status</th>
-                                    <th style="width: 2%;">Description</th>
+                                    <th style="width: 1%;">Request ID</th>
+                                    <th style="width: 2%;">Brand</th>
+                                    <th style="width: 3%;">Receiving Branch</th>
+                                    <th style="width: 1%;">Requested Date</th>
+                                    <th style="width: 2%;">Requested By</th>
+                                    <th style="width: 2%;">Approved By</th>
+                                    <th style="width: 2%;">Status</th>                                
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php if (empty($assets)): ?>
                                     <tr>
-                                    <td colspan="8">No assets found.</td>
+                                    <td colspan="7">No assets found.</td>
                                     </tr>
                                 <?php else: ?>
                                     <?php foreach ($assets as $asset): ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($asset['AssetId']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['AssetName']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['SerialNumber']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['PropertyNumber']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['Acquisition']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['PurchasedDate']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['Description']); ?></td>
+                                            <td>0</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -155,6 +150,5 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
         </div>
     </div>
-    <?php include '../modals/TransferAsset.php'; ?>
 </body>
 </html>

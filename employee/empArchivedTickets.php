@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php

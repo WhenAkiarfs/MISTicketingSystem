@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php
@@ -22,8 +22,11 @@ if ($_SESSION['RoleId'] != 1) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-ticket-mgmt.css">
-    <link rel ="stylesheet" href="../asset/css/pagination.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -112,57 +115,25 @@ if ($_SESSION['RoleId'] != 1) {
         <!-- Ticket History Archive Table -->
             <div class="row no-gutters mt-4">
                 <div class="col-12">
-                    <div class="table-responsive"> 
-                        <table class="table table-striped table-hover" id="tblTicketArchive">
-                        <thead class="thead-dark" style="text-align: center;">
-                            <tr>
-                                <th style="width: 4%;">Submitted At</th>
-                                <th style="width: 3%;">Ticket ID</th>
-                                <th style="width: 3%;">Type of Issue</th>
-                                <th style="width: 6%;">Branch</th>
-                                <th style="width: 5%;">Assigned IT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td id="tixID">1001</td>
-                                <td id="tixType">Hardware</td>
-                                <td>QCPL</td>
-                                <td>John Adams</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1002</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>John Doe</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1003</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Smith</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1004</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Adams</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive mt-0">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Ticket ID</th>
+                                    <th>Submitted At</th>
+                                    <th>Branch</th>
+                                    <th>Issue</th>
+                                    <th>Assigned IT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be dynamically added via JavaScript -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-                <div class="pagination-container">
-                    <ul class="pagination" id="pagination">
-                        <!-- Pagination -->
-                    </ul>
-                </div>
             </main>
+            </div>
         </div>
     </div>
 </body>
