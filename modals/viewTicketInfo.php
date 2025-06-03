@@ -5,100 +5,31 @@
 <!-- External JS Link/s -->
 <script src="../asset/js/buttons.js"></script>
 
-<!-- View Ticket Modal -->
+<!-- View Ticket Modal (Admin)-->
 <div class="modal fade" id="viewTicketModal" tabindex="-1" aria-labelledby="viewTicketModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title" id="viewTicketModalLabel">Ticket Information</h4>
-	@@ -21,27 +28,96 @@
-                                </div>
-                            </div>  
-                        </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col-3">
-                                    <div class="row">
-                                        <!-- Pending, On Going, Completed, Cancelled -->
-                                    <button type="button" class="btn btn-status" id="view-ticket-status" name="view-ticket-status">
-                                        <span id="view-ticket-status-text"></span>
-                                    </button>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="row">
-                                        <!-- Hardware or Software -->
-                                    <button type="button" class="btn btn-type" id="view-ticket-type" name="view-ticket-type">
-                                        <span id="view-ticket-type-text"></span>
-                                    </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-4">
-                            <div class="form-group">
-                                <label for="view-ticket-date">Submitted At</label>
-                                <input type="text" class="form-control" id="view-ticket-date" name="view-ticket-date" readonly>
-                            </div>
-                            </div>
-                            
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="view-ticket-branch">Branch</label>
-                                    <input type="text" class="form-control" id="view-ticket-branch" name="view-ticket-branch" readonly>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label for="view-ticket-district">District</label>
-                                    <input type="text" class="form-control" id="view-ticket-district" name="view-ticket-district" readonly>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="view-ticket-requester">Requester</label>
-                                <input type="text" class="form-control" id="view-ticket-requester" name="view-ticket-requester" readonly>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="view-requester-email">Email</label>
-                                <input type="text" class="form-control" id="view-requester-email" name="view-requester-email" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="view-ticket-requester-contact">Contact No.</label>
-                                <input type="text" class="form-control" id="view-ticket-requester-contact" name="view-ticket-requester-contact" readonly>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="view-ticket-technician">IT Technician</label>
-                                <input type="text" class="form-control" id="view-ticket-technician" name="view-ticket-technician" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="view-ticket-description">Description</label>
-                            <textarea class="form-control" id="view-ticket-description" name="view-ticket-description" readonly>
-                                Enter Description
-                            </textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
+<div class="modal-dialog modal-dialog-centered modal-lg">
+<div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title">Ticket Details</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form action="..admin/ticketDetails.php" method="POST">
+        <div class="row mb-3">
+        <div class="col-md-6">
+            <button type="button" class="btn-status">Ongoing</button>
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn-issuetype">Software</button>
         </div>
     </div>
+        <p><strong>Ticket ID:</strong> <span id="modalTicketId"></span></p>
+        <p><strong>Submitted At:</strong> <span id="modalSubmittedAt"></span></p>
+        <p><strong>Branch:</strong> <span id="modalBranch"></span></p>
+        <p><strong>Issue:</strong> <span id="modalIssue"></span></p>
+        <p><strong>Assigned IT:</strong> <span id="modalAssigned"></span></p>
+        </form>
+    </div>
+</div>
+</div>
 </div>

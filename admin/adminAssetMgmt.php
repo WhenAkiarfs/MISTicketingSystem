@@ -1,30 +1,50 @@
 <script>
-  var pageTitle = "Asset Management";
+    var pageTitle = "Asset Management";
 </script>
 
-
-
-
 <?php
+session_start();
 include '../Includes/config.php';
 
-// Fetch the assets with branch name
-$sql = "SELECT * FROM t_asset 
-        JOIN t_branch 
-        ON t_asset.BranchId = t_branch.BranchId;";
+if (isset($_SESSION['success_message'])) {
+    echo "<div class='alert alert-success'>" . $_SESSION['success_message'] . "</div>";
+    unset($_SESSION['success_message']); // Remove the message after displaying
+}
 
+// Asset table
+$sql = "SELECT * FROM t_asset 
+        JOIN t_branch ON t_asset.BranchId = t_branch.BranchId;";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
 ?>
 
 <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-  <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-    ✅ New asset registered successfully!
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show the modal
+            var myModal = new bootstrap.Modal(document.getElementById('successfulRegistrationModal'));
+            myModal.show();
+
+            // Remove the 'success' parameter from the URL
+            const url = new URL(window.location);
+            url.searchParams.delete('success');
+            window.history.replaceState({}, document.title, url);
+        });
+    </script>
+<?php endif; ?>
+
+<?php if (isset($_GET['success']) && $_GET['success'] == 2): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('successfulUpdateModal'));
+            myModal.show();
+
+            const url = new URL(window.location);
+            url.searchParams.delete('success');
+            window.history.replaceState({}, document.title, url);
+        });
+    </script>
 <?php endif; ?>
 
 <!DOCTYPE html>
@@ -37,7 +57,11 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-asset-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -74,7 +98,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="div-mods inactive" onclick="window.location.href='adminTransferRequestsList.php'">
                     <span class="mods">Transfer Requests</span>
                 </div>
-                <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerAssetModal">
+                <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerAssetModal">
                     <span class="mods">Register an Asset</span>
                 </div>
             </div>
@@ -100,7 +124,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fa fa-filter me-1"></i>
                 </button>
                 <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                    <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
                     <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-location-dot me-2"></i>Branch</a></li>
                 </ul>
@@ -127,14 +150,15 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <table id="assetTable" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th style="width: 1%;">Asset ID</th>
                                     <th style="width: 4%;">Branch</th>
-                                    <th style="width: 2.5%;">Brand</th>
+                                    <th style="width: 2.5%;">Asset Name</th>
                                     <th style="width: 3%;">Serial Number</th>
                                     <th style="width: 3%;">Property Number</th>
-                                    <th style="width: 3%;">Acquisition</th>
-                                    <th style="width: 2%;">Purchased Date</th>
+                                    <th style="width: 1%;">Acquisition</th>
+                                    <th style="width: 2%;">Date Acquired</th>
                                     <th style="width: 2%;">Status</th>
-                                    <th style="width: 2%;">Description</th>
+                                    <th style="width: 2%;">Tool</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,6 +169,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <?php else: ?>
                                     <?php foreach ($assets as $asset): ?>
                                         <tr>
+                                            <td><?php echo htmlspecialchars($asset['AssetId']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['BranchName']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['AssetName']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['SerialNumber']); ?></td>
@@ -152,7 +177,20 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                             <td><?php echo htmlspecialchars($asset['Acquisition']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['PurchasedDate']); ?></td>
                                             <td><?php echo htmlspecialchars($asset['AssetStatus']); ?></td>
-                                            <td><?php echo htmlspecialchars($asset['Description']); ?></td>
+                                            <td>
+                                            <!-- Edit Button -->
+                                            <button 
+                                                class="btn btn-edit btn-sm" 
+                                                onclick="openEditModal4(<?php echo $user['AssetId']; ?>)">
+                                                Edit
+                                            </button>
+                                            <!-- Delete Button -->
+                                            <button 
+                                                class="btn btn-danger btn-sm" 
+                                                onclick="openDeleteModal2(<?php echo $user['AssetId']; ?>)">
+                                                Delete
+                                            </button>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -164,19 +202,29 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
         </div>
     </div>
-    <?php include '../modals/adminRegisterAsset.php'; ?>
 
+    <!-- Register Asset Modal -->
+    <?php include '../modals/RegisterAsset.php'; ?>
+    <!-- Update Asset Modal -->
+    <?php include '../modals/UpdateAsset.php'; ?>
+    <!-- Delete Asset Modal -->
+    <?php include '../modals/confirmationModal.php'; ?>
+    <!-- Success Modal -->
+    <?php include '../modals/successModal.php'; ?>
+
+    <!-- External JS Files -->
+    <script src="../asset/js/fetchModal.js"></script>
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#assetTable tbody tr');
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#assetTable tbody tr');
 
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        rows.forEach(row => {
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
+        });
     });
-  });
 </script>
 </body>
 

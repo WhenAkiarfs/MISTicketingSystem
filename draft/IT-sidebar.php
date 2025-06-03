@@ -27,7 +27,7 @@
         <div class="sidebar-menu flex-grow-1">
             <ul class="sidebar-nav p-0">
             <li class="sidebar-item active">
-                <a href="../branchadmin/bradmindashboard.php">
+                <a href="../ITstaff/ITdashboard.php">
                 <span class="icon"><i class="fa fa-house"></i></span>
                 <span class="text">Dashboard</span>
                 </a>
@@ -44,7 +44,12 @@
                 <span class="text">Assets</span>
                 </a>
             </li>
-            
+            <li class="sidebar-item">
+                <a href="../admin/ManageIT.php">
+                <span class="icon"><i class="fa fa-id-card-clip"></i></span>
+                <span class="text">IT Staff</span>
+                </a>
+            </li>
             <li class="sidebar-item">
                 <a href="../admin/ManageBranch.php">
                 <span class="icon"><i class="fa fa-book-open"></i></span>

@@ -11,7 +11,7 @@ if (isset($_SESSION['success_message'])) {
     unset($_SESSION['success_message']); // Remove the message after displaying
 }
 
-//IT staff table 
+//LIC staff table 
 $sql = "SELECT * FROM t_users 
         JOIN t_roles ON t_users.RoleId = t_roles.RoleId 
         JOIN t_branch ON t_users.BranchId = t_branch.BranchId
@@ -21,7 +21,7 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//update IT staff
+//update LIC staff
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -64,7 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-branch-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -100,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="div-mods inactive" onclick="window.location.href='adminEmployeeList.php'">
                             <span class="mods">Employee</span>
                         </div>
-                        <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerLICModal">
+                        <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerLICModal">
                         <span class="mods">Register an LIC</span>
                         </div>
                     </div>
@@ -119,8 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fa fa-filter me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
                                 <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-location-dot me-2"></i>Branch</a></li>
                             </ul>
                         </div>
@@ -167,9 +169,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <td><?php echo $user['BranchName']; ?></td>
                                         <!--td><?php echo $user['RoleName']; ?></!--td>-->
                                         <td>
-                                        <button class="btn btn-edit btn-sm" onclick="openEditModal2(<?php echo $user['UserId']; ?>)">Edit</button>
-                                        <button class="btn btn-danger btn-sm" onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">Delete</button>
-                                        </td>
+                                            <!-- Edit Button -->
+                                            <button 
+                                                class="btn btn-edit btn-sm" 
+                                                onclick="openEditModal2(<?php echo $user['UserId']; ?>)">
+                                                Edit
+                                            </button>
+                                            <!-- Delete Button -->
+                                            <button 
+                                                class="btn btn-danger btn-sm" 
+                                                onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">
+                                                Delete
+                                            </button>
+                                            </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -182,15 +194,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- Register LIC Modal -->
-    <?php include '../modals/adminRegisterLIC.php'; ?>
+    <?php include '../modals/RegisterLIC.php'; ?>
     <!-- Update LIC Modal -->
-    <?php include '../modals/adminUpdateLIC.php'; ?>
+    <?php include '../modals/UpdateLIC.php'; ?>
     <!-- Delete LIC Modal -->
-    <?php include '../modals/adminDeleteLIC.php'; ?>
+    <?php include '../modals/confirmationModal.php'; ?>
 
     <!-- External JS Files -->
     <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 
     <script>
   document.getElementById('searchInput').addEventListener('keyup', function () {

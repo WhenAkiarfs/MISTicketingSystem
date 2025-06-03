@@ -1,5 +1,4 @@
 <?php
-// getBranchTicketsData.php
 require '../Includes/config.php'; // Adjust path if needed
 
 $sql = "SELECT b.BranchName, COUNT(t.TicketId) AS TicketCount
@@ -24,4 +23,3 @@ echo json_encode([
     'data' => $data
 ]);
 ?>
-

@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php
@@ -22,6 +22,7 @@ if ($_SESSION['RoleId'] != 4) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
     <link rel="stylesheet" href="../asset/css/div_mods.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
@@ -41,6 +42,7 @@ if ($_SESSION['RoleId'] != 4) {
     <!-- Custom JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
     <script src="../asset/js/adminAllTickets.js"></script>
 </head>
 
@@ -58,7 +60,7 @@ if ($_SESSION['RoleId'] != 4) {
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
                     <!-- Tabs Section -->
                     <div class="d-flex flex-wrap gap-2">
-                        <div class="div-mods inactive" onclick="window.location.href='empTicketMgmt.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='empticketMgmt.php'">
                             <span class="mods">Repair Requests</span>
                         </div>
                         <div class="div-mods inactive" onclick="window.location.href='empCompletedTickets.php'">

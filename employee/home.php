@@ -60,7 +60,7 @@ if ($_SESSION['RoleId'] != 4) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-
+    <link rel="stylesheet" href="../asset/css/notif.css">
     <link rel="stylesheet" href="../asset/css/greeting.css">
     <link rel="stylesheet" href="../asset/css/ticket-cards.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
@@ -83,7 +83,6 @@ if ($_SESSION['RoleId'] != 4) {
     <script src="../asset/js/sidebar.js"></script>
     <script src="../asset/js/notif.js"></script>
     <script src="../asset/js/greetingCard.js"></script>
-    <script src="../asset/js/recentTicket.js"></script>
     <script src="../asset/js/ticketSummary.js"></script>
     <script src="../asset/js/adminNavTables.js"></script>
 
@@ -432,7 +431,8 @@ $abbreviatedBranch = abbreviateBranch($recentTicket['BranchName']);
     <!-- Submit Ticket Modal -->
     <?php include '../modals/submitTicket.php'; ?>
 
-   
+    <!-- View Ticket Info Modal -->
+    <?php include '../modals/viewTicketInfo.php'; ?>
 
     <!-- External JS Link/s -->
     <script src="../asset/js/sidebar.js"></script>

@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Branch Management";
+    var pageTitle = "Branch Management";
 </script>
 
 <?php
@@ -20,6 +20,34 @@ $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show the modal
+            var myModal = new bootstrap.Modal(document.getElementById('successfulRegistrationModal'));
+            myModal.show();
+
+            // Remove the 'success' parameter from the URL
+            const url = new URL(window.location);
+            url.searchParams.delete('success');
+            window.history.replaceState({}, document.title, url);
+        });
+    </script>
+<?php endif; ?>
+
+<?php if (isset($_GET['success']) && $_GET['success'] == 2): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('successfulUpdateModal'));
+            myModal.show();
+
+            const url = new URL(window.location);
+            url.searchParams.delete('success');
+            window.history.replaceState({}, document.title, url);
+        });
+    </script>
+<?php endif; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,9 +58,11 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-branch-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel="stylesheet" href="../asset/css/pagination.css">
-    <link rel="stylesheet" href="../asset/css/modals.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,8 +73,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- External JS Files -->
+    <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 </head>
 
 <body>
@@ -67,8 +98,8 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="div-mods active" onclick="window.location.href='adminEmployeeList.php'">
                             <span class="mods">Employee</span>
                         </div>
-                        <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerLICModal">
-                        <span class="mods">Register an LIC</span>
+                        <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerEmpModal">
+                        <span class="mods">Register an Employee</span>
                         </div>
                     </div>
 
@@ -101,13 +132,14 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <table id="empTable" class="table table-striped table-bordered table-hover" id="tblEmployee">
                         <thead class="thead-dark">
                             <tr>
-                            <th>Employee ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Contact No.</th>
-                            <th>Branch</th>
-                            <!-- <th>Role</th> -->                         
+                            <th style="width:0.5%">Employee ID</th>
+                            <th style="width:1%">First Name</th>
+                            <th style="width:2%">Last Name</th>
+                            <th style="width:1%">Email</th>
+                            <th style="width:0.5%">Contact No.</th>
+                            <th style="width:4%">Branch</th>
+                            <!--th>Role</!--th>-->
+                            <th style="width:1.2%">Actions</th>                        
                         </tr>
                         </thead>
                         <tbody>
@@ -119,7 +151,21 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     <td><?php echo $user['Email']; ?></td>
                                     <td><?php echo $user['Contactno']; ?></td>
                                     <td><?php echo $user['BranchName']; ?></td>
-                                    <!--td><?php echo $user['RoleId']; ?></!--td>-->  
+                                    <!--td><?php echo $user['RoleId']; ?></!--td>-->
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <button 
+                                            class="btn btn-edit btn-sm" 
+                                            onclick="openEditModal3(<?php echo $user['UserId']; ?>)">
+                                            Edit
+                                        </button>
+                                        <!-- Delete Button -->
+                                        <button 
+                                            class="btn btn-danger btn-sm" 
+                                            onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">
+                                            Delete
+                                        </button>
+                                    </td> 
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -130,28 +176,21 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
     </main>
 </div>
-    <!-- Register LIC Modal -->
-    <?php include '../modals/adminRegisterLIC.php'; ?>
-    <!-- Update LIC Modal -->
-    <?php include '../modals/adminUpdateLIC.php'; ?>
-    <!-- Delete LIC Modal -->
-    <?php include '../modals/adminDeleteLIC.php'; ?>
-
-    <!-- External JS Files -->
-    <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <?php include '../modals/RegisterEmployee.php'; ?>
+    <?php include '../modals/UpdateEmp.php'; ?>
+    <?php include '../modals/confirmationModal.php'; ?>
 
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
+    document.getElementById('searchInput').addEventListener('keyup', function () {
     const filter = this.value.toLowerCase();
     const rows = document.querySelectorAll('#empTable tbody tr');
 
     rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
     });
-  });
-</script>
+    });
+    </script>
 </body>
 </html>

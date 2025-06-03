@@ -4,8 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $roleId = $_SESSION['RoleId'];
 ?>
- <link rel="stylesheet" href="../asset/css/notif.css">
-
 
 <!-- Start of Header -->
 <div class="layout-container d-flex">
@@ -155,19 +153,19 @@ $roleId = $_SESSION['RoleId'];
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../branchadmin/bradminTicketMgmt.php">
+                            <a href="/branchadmin/bradminTicketMgmt.php">
                                 <span class="icon"><i class="fa fa-ticket"></i></span>
                                 <span class="text">Tickets</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../branchadmin/bradminAssetMgmt.php">
+                            <a href="/branchadmin/bradminAssetMgmt.php">
                                 <span class="icon"><i class="fa fa-toolbox"></i></span>
                                 <span class="text">Assets</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../branchadmin/licRegisterEmployee.php">
+                            <a href="/branchadmin/bradminEmployeeMgmt.php">
                                 <span class="icon"><i class="fa fa-users"></i></span>
                                 <span class="text">Employees</span>
                             </a>
@@ -194,7 +192,7 @@ $roleId = $_SESSION['RoleId'];
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="../employee/empAssetMgmt.php">
+                            <a href="/employee/empAssetMgmt.php">
                                 <span class="icon"><i class="fa fa-toolbox"></i></span>
                                 <span class="text">Branch Assets</span>
                             </a>
@@ -224,5 +222,3 @@ $roleId = $_SESSION['RoleId'];
     </div>
     <!-- End of Sidebar -->
 </div>
-
-<script src="../asset/js/notif.js"></script>

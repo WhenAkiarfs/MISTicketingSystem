@@ -7,14 +7,15 @@
     <link rel="icon" type="image/x-icon"  alt="qcpl_logo" href="asset/img/qcpl-sts-logo.png">
 
     <!-- Bootstrap 5 CDN -->
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="asset/css/login.css">
-    <link rel="stylesheet" href="asset/css/auxiliary-login.css">
+    <link rel="stylesheet" href="../asset/css/login.css">
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
     
 </head>
 
@@ -33,7 +34,7 @@
                 <h2 class="mb-2"><span class="dot"></span> Log In</h2>
                 <p class="text-muted">Welcome back! Please enter your credentials:</p>
 
-                <form action="auth/login.php" method="POST" id="login-form">
+                <form action="../auth/login.php" method="POST" id="login-form">
                     <div class="mb-2">
                         <label class="form-label">Email Address</label>
                         <input type="email" class="form-control custom-input" id="email" name="email" placeholder="Enter your email address" required>
