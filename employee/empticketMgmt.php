@@ -22,11 +22,13 @@ if ($_SESSION['RoleId'] != 4) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
     <link rel="stylesheet" href="../asset/css/div_mods.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
     <link rel="stylesheet" href="../asset/css/tbl-controls.css">
-    <link rel="stylesheet" href="../asset/css/buttons.css">    <link rel ="stylesheet" href="../asset/css/pagination.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    
+    <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,9 +39,11 @@ if ($_SESSION['RoleId'] != 4) {
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- Custom JS Link/s -->
+    <!-- External JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
 </head>
 
 <body>
@@ -74,11 +78,6 @@ if ($_SESSION['RoleId'] != 4) {
                             <input type="text" class="form-control" placeholder="Search" aria-label="Search">
                             <span class="input-group-text control-btn"><i class="fa fa-search"></i></span>
                         </div>
-
-                        <!-- Date Button -->
-                        <button class="btn btn-outline-secondary control-btn" type="button">
-                            <i class="fa fa-calendar me-1"></i> Select Date
-                        </button>
 
                         <!-- Filter Dropdown -->
                         <div class="dropdown">
@@ -135,7 +134,7 @@ if ($_SESSION['RoleId'] != 4) {
             <div class="tab-content" id="nav-tix-content">
                 <!-- Pending Tab Pane -->
                 <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                    <table class="table table-striped table-hover mt-3" id="tblRepairTickets">
+                    <table id="pendingTable" class="table table-striped table-hover mt-3">
                         <thead class="thead-dark">
                         <tr>
                                 <th style="width: 4%;">Submitted At</th>
@@ -158,11 +157,27 @@ if ($_SESSION['RoleId'] != 4) {
                             <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="pendingTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Ongoing Tab Pane -->
                 <div class="tab-pane fade" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
-                    <table class="table table-md table-bordered table-striped table-hover mt-3">
+                    <table id="ongoingTable" class="table table-md table-bordered table-striped table-hover mt-3">
                         <thead class="thead-dark">
                         <tr>
                                 <th style="width: 4%;">Submitted At</th>
@@ -185,11 +200,27 @@ if ($_SESSION['RoleId'] != 4) {
                             <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="ongoingTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- All Tickets Tab Pane -->
                 <div class="tab-pane fade" id="alltix" role="tabpanel" aria-labelledby="alltix-tab">
-                    <table class="table table-md table-bordered table-striped table-hover mt-3">
+                    <table id="alltixTable" class="table table-md table-bordered table-striped table-hover mt-3">
                         <thead class="thead-dark">
                             <tr>
                                 <th class="dateTime" style="width: 5%">Submitted At</th>
@@ -247,6 +278,22 @@ if ($_SESSION['RoleId'] != 4) {
                             <!-- Rows will be populated by here -->
                         </tbody>
                     </table>
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="alltixTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -255,7 +302,37 @@ if ($_SESSION['RoleId'] != 4) {
     </div>
     <!-- Submit Ticket Modal -->
     <?php include '../modals/submitTicket.php'; ?>
+
     <!-- View Ticket Modal -->
     <?php include '../modals/viewTicketInfo.php'; ?>
+    
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
+
+    <script>
+        paginateTableWithLimitSelector(
+        '#pendingTable',
+        '#pendingTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+
+        paginateTableWithLimitSelector(
+        '#ongoingTable',
+        '#ongoingTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+
+        paginateTableWithLimitSelector(
+        '#alltixTable',
+        '#alltixTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+    </script>
 </body>
 </html>

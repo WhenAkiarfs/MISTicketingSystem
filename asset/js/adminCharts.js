@@ -132,6 +132,7 @@ options: {
     },
     title: {
         display: true,
+        text: "Top Issues in Main Branch",
         text: "Top Issues in Sattelite Offices",
         position: 'top',
         align: 'center',

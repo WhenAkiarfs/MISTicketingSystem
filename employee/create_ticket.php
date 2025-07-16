@@ -56,9 +56,9 @@ try {
         $branchId,
         $districtId,
         $assetId,
-       
+    
         $description,
-     
+    
     ]);
 
     // Insert each IssueId and SubtypeId pair into t_ticketissues

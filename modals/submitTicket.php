@@ -1,5 +1,4 @@
 <?php
-
 require_once '../Includes/config.php';
 
 $loggedInEmployeeId = $_SESSION['UserId'] ?? null;
@@ -47,14 +46,13 @@ $assets = $conn->query("SELECT * FROM t_asset")->fetchAll(PDO::FETCH_ASSOC);
 <!-- Bootstrap JS (required for modal to function) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 <!--Submit Ticket Modal-->
 <div class="modal fade" id="submitTicketModal" tabindex="-1" aria-labelledby="submitTicketModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="submitTicketModalLabel">Submit Ticket</h5>
+                <h5 class="modal-title" id="submitTicketModalLabel">Support Ticket Form</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
             </div>
 
@@ -67,32 +65,32 @@ $assets = $conn->query("SELECT * FROM t_asset")->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" name="DistrictId" value="<?= htmlspecialchars($employee['DistrictId']) ?>">
 
                     <div class="mb-3">
-                        <label class="form-label">Employee</label>
-                        <p class="form-control"><?= htmlspecialchars($employee['FirstName'] . ' ' . $employee['LastName']) ?></p>
+                        <label class="form-label" hidden>Employee</label>
+                        <p class="form-control" hidden><?= htmlspecialchars($employee['FirstName'] . ' ' . $employee['LastName']) ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Branch</label>
-                        <p class="form-control"><?= htmlspecialchars($employee['BranchName']) ?></p>
+                        <label class="form-label" hidden>Branch</label>
+                        <p class="form-control" hidden><?= htmlspecialchars($employee['BranchName']) ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">District</label>
-                        <p class="form-control"><?= htmlspecialchars($employee['DistrictName']) ?></p>
+                        <label class="form-label" hidden>District</label>
+                        <p class="form-control" hidden><?= htmlspecialchars($employee['DistrictName']) ?></p>
                     </div>
 
-                   <!-- Asset -->
-    <div class="mb-3">
-        <label for="AssetId" class="form-label">Asset</label>
-        <select name="AssetId" class="form-select" required>
-            <option value="">-- Select Asset --</option>
-            <?php foreach ($assets as $a): ?>
-                <option value="<?= $a['AssetId'] ?>">
-                    <?= $a['AssetId'] ?> - <?= htmlspecialchars($a['AssetName'] ?? 'Unnamed') ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+                    <!-- Asset -->
+                    <div class="mb-3">
+                        <label for="AssetId" class="form-label">Asset</label>
+                        <select name="AssetId" class="form-select" required>
+                            <option value="">-- Select Asset --</option>
+                            <?php foreach ($assets as $a): ?>
+                                <option value="<?= $a['AssetId'] ?>">
+                                    <?= $a['AssetId'] ?> - <?= htmlspecialchars($a['AssetName'] ?? 'Unnamed') ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
     <!-- Container for multiple issues -->
     <div id="issuesContainer">
@@ -146,7 +144,6 @@ $assets = $conn->query("SELECT * FROM t_asset")->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 <script>
-   
 document.addEventListener('DOMContentLoaded', function() {
     const issuesContainer = document.getElementById('issuesContainer');
     const addIssueBtn = document.getElementById('addIssueBtn');

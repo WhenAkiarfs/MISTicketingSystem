@@ -108,13 +108,13 @@ if (isset($_POST['request_account'])) {
                 <form method="POST">
                     <div class="mb-3" id="user_email">
                         <label for="user_email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control custom-input" name="user_email" placeholder="Enter your email address" required>
+                        <input type="email" class="form-control custom-input" name="user_email" required>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="contact_no" class="form-label">Contact Number</label>
-                            <input type="text" class="form-control custom-input" name="contact_no" placeholder="Enter your contact number"required>
+                            <input type="text" class="form-control custom-input" name="contact_no" required>
                         </div>
 
                         <div class="col-md-6">

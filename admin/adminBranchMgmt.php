@@ -11,7 +11,7 @@ if (isset($_SESSION['success_message'])) {
     unset($_SESSION['success_message']); // Remove the message after displaying
 }
 
-//IT staff table 
+//LIC staff table 
 $sql = "SELECT * FROM t_users 
         JOIN t_roles ON t_users.RoleId = t_roles.RoleId 
         JOIN t_branch ON t_users.BranchId = t_branch.BranchId
@@ -21,7 +21,7 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-//update IT staff
+//update LIC staff
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
@@ -64,7 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-branch-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -78,6 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- External JS Files -->
+    <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 </head>
 
 <body>
@@ -100,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="div-mods inactive" onclick="window.location.href='adminEmployeeList.php'">
                             <span class="mods">Employee</span>
                         </div>
-                        <div class="div-mods inactive" data-bs-toggle="modal" data-bs-target="#registerLICModal">
+                        <div class="div-mods action" data-bs-toggle="modal" data-bs-target="#registerLICModal">
                         <span class="mods">Register an LIC</span>
                         </div>
                     </div>
@@ -119,8 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fa fa-filter me-1"></i>
                             </button>
                             <ul class="dropdown-menu shadow-sm p-2 rounded-3 border-0">
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-copyright me-2"></i>Brand</a></li>
-                                <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-toolbox me-2"></i>Type of Issue</a></li>
                                 <li><a class="dropdown-item py-2 px-3" href="#"><i class="fa-solid fa-location-dot me-2"></i>Branch</a></li>
                             </ul>
                         </div>
@@ -167,9 +176,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <td><?php echo $user['BranchName']; ?></td>
                                         <!--td><?php echo $user['RoleName']; ?></!--td>-->
                                         <td>
-                                        <button class="btn btn-edit btn-sm" onclick="openEditModal2(<?php echo $user['UserId']; ?>)">Edit</button>
-                                        <button class="btn btn-danger btn-sm" onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">Delete</button>
-                                        </td>
+                                            <!-- Edit Button -->
+                                            <button 
+                                                class="btn btn-edit btn-sm" 
+                                                onclick="openEditModal2(<?php echo $user['UserId']; ?>)">
+                                                Edit
+                                            </button>
+                                            <!-- Delete Button -->
+                                            <button 
+                                                class="btn btn-danger btn-sm" 
+                                                onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">
+                                                Delete
+                                            </button>
+                                            </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -178,31 +197,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
         </div>
+        <!-- Pagination -->
+        <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="licTablePagination"></div>
+
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
+                </div>
+        </div>
         </main>
     </div>
 
     <!-- Register LIC Modal -->
-    <?php include '../modals/adminRegisterLIC.php'; ?>
-    <!-- Update LIC Modal -->
-    <?php include '../modals/adminUpdateLIC.php'; ?>
-    <!-- Delete LIC Modal -->
-    <?php include '../modals/adminDeleteLIC.php'; ?>
+    <?php include '../modals/RegisterLIC.php'; ?>
 
-    <!-- External JS Files -->
-    <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <!-- Update LIC Modal -->
+    <?php include '../modals/UpdateLIC.php'; ?>
+
+    <!-- Delete LIC Modal -->
+    <?php include '../modals/confirmationModal.php'; ?>
+
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
 
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#licTable tbody tr');
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#licTable tbody tr');
 
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        rows.forEach(row => {
+            const cells = Array.from(row.getElementsByTagName('td'));
+            const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+            row.style.display = match ? '' : 'none';
     });
-  });
-</script>
+    });
+    </script>
+
+    <script>
+        paginateTableWithLimitSelector(
+        '#licTable',
+        '#licTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

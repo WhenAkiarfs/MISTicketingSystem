@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php
@@ -22,7 +22,12 @@ if ($_SESSION['RoleId'] != 1) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-ticket-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -41,7 +46,10 @@ if ($_SESSION['RoleId'] != 1) {
     <script src="../asset/js/adminNavTables.js"></script>
     <script src="../asset/js/adminCharts.js"></script>
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
     <script src="../asset/js/adminAllTickets.js"></script>
+
 </head>
 
 <body>
@@ -76,12 +84,7 @@ if ($_SESSION['RoleId'] != 1) {
                         <input type="text" class="form-control" placeholder="Search" aria-label="Search">
                         <span class="input-group-text control-btn"><i class="fa fa-search"></i></span>
                     </div>
-
-                    <!-- Date Button -->
-                    <button class="btn btn-outline-secondary control-btn" type="button">
-                        <i class="fa fa-calendar me-1"></i> Select Date
-                    </button>
-
+                    
                     <!-- Filter Dropdown -->
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
@@ -112,58 +115,56 @@ if ($_SESSION['RoleId'] != 1) {
         <!-- Completed Tickets Table -->
             <div class="row no-gutters mt-4">
                 <div class="col-12">
-                    <div class="table-responsive"> 
-                        <table class="table table-striped table-hover" id="tblCompletedTickets">
-                        <thead class="thead-dark" style="text-align: center;">
+                <div class="table-responsive mt-0">
+                    <table id="completedTixTable" class="table table-bordered table-striped table-hover">
+                        <thead class="thead-dark">
                             <tr>
-                                <th style="width: 4%;">Submitted At</th>
-                                <th style="width: 3%;">Ticket ID</th>
-                                <th style="width: 3%;">Type of Issue</th>
-                                <th style="width: 6%;">Branch</th>
-                                <th style="width: 5%;">Assigned IT</th>
+                                <th>Ticket ID</th>
+                                <th>Submitted At</th>
+                                <th>Branch</th>
+                                <th>Issue</th>
+                                <th>Assigned IT</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td id="tixID">1001</td>
-                                <td id="tixType">Hardware</td>
-                                <td>QCPL</td>
-                                <td>Jane Smith</td>  
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1002</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>John Doe</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1003</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jane Adams</td>
-                            </tr>
-                            <tr>
-                                <td>Apr 12, 2025, 09:43:15</td>
-                                <td>1004</td>
-                                <td>Software</td>
-                                <td>QCPL</td>
-                                <td>Jack Johnson</td>
-                            </tr>
+                            <!-- Rows will be dynamically added via JavaScript -->
                         </tbody>
                     </table>
-                    </div>
                 </div>
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="completedTixTablePagination"></div>
 
-                <div class="pagination-container">
-                    <ul class="pagination" id="pagination">
-                        <!-- Pagination -->
-                    </ul>
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
                 </div>
+            </div>
             </main>
         </div>
     </div>
+        <!-- Account Profile Update Modal -->
+        <?php include '../auth/updateAcc.php'; ?>
+
+        <!-- Account Password Update Modal -->
+        <?php include '../auth/updatePass.php'; ?>
+
+        <script>
+        paginateTableWithLimitSelector(
+        '#completedTixTable',
+        '#completedTixTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

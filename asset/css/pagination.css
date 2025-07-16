@@ -1,63 +1,83 @@
-/* Basic container styling */
-.pagination {
+/* General pagination container */
+.custom-pagination {
     display: flex;
     align-items: center;
-    justify-content: end;
-    gap: 5px; /* space between buttons */
+    justify-content: flex-end;
+    gap: 9px;
+    flex-wrap: nowrap;
     padding: 10px 0;
-    margin-right: 3rem;
 }
 
-/* Styling for each page button */
-.pagination .page-item {
+/* Each pagination item */
+.custom-pagination .page-item {
     list-style: none;
-    border-radius: 100%;
 }
 
-.pagination .page-link {
-    display: flex; /* Changed to flex for vertical alignment */
-    align-items: center; /* Vertically centers text */
-    justify-content: center; /* Horizontally centers text */
+/* Page buttons: round with 3D shadow */
+.custom-pagination .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 2.5rem;
     height: 2.5rem;
-    text-align: center;
-    border-radius: 100%;
-    color: #081f5c; /* Text color */
-    border: none;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    color: #0060c7;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
 }
 
-.pagination .page-link:hover {
-    background-color: #f0f0f0;
-    color: #081f5c;
+/* Font Awesome icons inside buttons */
+.custom-pagination .page-link i {
+    font-size: 16px;
+    line-height: 1;
+    vertical-align: middle;
 }
 
-/* Active page styling */
-.pagination .active .page-link {
-    background-color: #0C3C74;
+/* Active (current) page button */
+.custom-pagination .page-item.active .page-link {
+    background-color: #0060c7;
     color: #fff;
-    border-color: #0C3C74;
+    border-color: #0060c7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    pointer-events: none;
 }
 
-/* Disabled button styling */
-.pagination .disabled .page-link {
+/* Disabled buttons */
+.custom-pagination .page-item.disabled .page-link {
     color: #ccc;
-    cursor: not-allowed;
+    background-color: #f8f9fa;
     border-color: #ddd;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
-/* Custom input styling within pagination */
-.pagination .page-input {
-    border: 2px solid #ddd;
-    padding: 6px 5px;
-    border-radius: 6px;
-    margin-left: 1rem;
-    width: 4.5rem;
+#perPageSelect {
+    width: 70px;
+    height: 2.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 0.7rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+    color: #0060c7;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="%23081f5c" class="bi bi-caret-down-fill" viewBox="0 0 16 16"><path d="M7.247 11.14l-4.796-5.481C1.451 5.01 1.95 4 2.809 4h10.382c.86 0 1.358 1.01.358 1.659L8.753 11.14a1 1 0 0 1-1.506 0z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 12px;
+    cursor: pointer;
 }
 
-.pagination .page-input:focus {
+#perPageSelect:focus {
     outline: none;
-    border: 2px solid #081f5c;
+    border-color: #0060c7;
+    box-shadow: 0 0 0 3px rgba(12, 60, 116, 0.2);
 }

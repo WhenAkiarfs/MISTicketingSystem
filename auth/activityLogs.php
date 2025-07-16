@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Activity Logs";
+    var pageTitle = "Activity Logs";
 </script>
 
 <?php
@@ -40,7 +40,7 @@ $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Redirect link based on role
 $redirectLink = match ($roleId) {
     1 => '../admin/admindashboard.php',
-    2 => '../branchadmin/bradmindashboard.php',
+    2 => '../branchadmin/licDashboard.php',
     3 => '../ITstaff/ITdashboard.php',
     default => '../employee/home.php',
 };
@@ -56,8 +56,10 @@ $redirectLink = match ($roleId) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-dashboard.css">
-    <link rel="stylesheet" href="../asset/css/admin-activity-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -74,6 +76,8 @@ $redirectLink = match ($roleId) {
 
     <!-- External JS Link/s -->
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
 </head>
 
 <body>
@@ -102,12 +106,8 @@ $redirectLink = match ($roleId) {
                         <i class="fa fa-search"></i>
                     </span>
                     </div>
-                    
-                    <!-- Date Button -->
-                    <button class="btn btn-outline-secondary control-btn" type="button">
-                        <i class="fa fa-calendar me-1"></i> Select Date
-                    </button>
 
+                    <?php if ($roleId == 1 || $roleId == 3) { ?>
                     <!-- Filter Dropdown -->
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
@@ -119,6 +119,7 @@ $redirectLink = match ($roleId) {
                             <li><a class="dropdown-item" href="#"><i class="fa-solid fa-chart-simple me-2"></i>Activity</a></li>
                         </ul>
                     </div>
+                    <?php } ?>
 
                     <!-- Sort Dropdown -->
                     <div class="dropdown">
@@ -142,8 +143,8 @@ $redirectLink = match ($roleId) {
                         </div>
                         <div class="col-6">
                             <div class="d-flex flex-wrap align-items-center justify-content-end">
-                                <?php if ($roleId == 1 && $roleId == 3): ?>
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#downloadReportModal">
+                                <?php if ($roleId == 1 || $roleId == 3): ?>
+                                    <button class="btn btn-download" type="button" data-bs-toggle="modal" data-bs-target="#downloadReportModal">
                                         <i class="fa-solid fa-download me-1"></i> Download Report
                                     </button>
                                 <?php endif; ?>
@@ -185,25 +186,55 @@ $redirectLink = match ($roleId) {
                     </div>
                 </div>
             </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="logsTablePagination"></div>
+
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
+                </div>
+            </div>
         </div>
     </main>
     </div>
-    </div>
 
     <!-- Download Report Modal -->
-    <!?php include '../admin/modals/adminDownloadReport.php'; ?>
+    <?php include '../modals/DownloadReport.php'; ?>
+
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
 
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
+    document.getElementById('searchInput').addEventListener('keyup', function () {
     const filter = this.value.toLowerCase();
     const rows = document.querySelectorAll('#logsTable tbody tr');
 
     rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
     });
-  });
-</script>
+    });
+    </script>
+
+    <script>
+        paginateTableWithLimitSelector(
+        '#logsTable',
+        '#logsTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

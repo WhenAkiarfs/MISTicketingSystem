@@ -1,0 +1,171 @@
+/*  import google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* for responsive design */
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Container & Card */
+.container {
+    max-width: 850px !important;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.card {
+    background-color: #ffffff !important;
+    border-radius: 40px !important;
+    padding: 30px;
+    box-shadow: 0 10px 25px #00000026;
+}
+
+.card h2 {
+    font-weight: 700;
+    color: #0038a8;
+    text-align: center;
+}
+
+hr {
+    border: 2px solid #26448a !important;
+}
+
+.card-body {
+    background-color: #ffffff;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+/* Labels */
+.form-label {
+    font-weight: 600 !important;
+    font-size: 16px;
+    color: #0060c7;
+}
+
+/* Input */
+.form-control {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 450 !important;
+    border: 2px solid #014fa3 !important;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 0.15rem rgba(102, 126, 234, 0.25);
+    outline: none;
+}
+
+/* Textarea Styling */
+textarea.form-control {
+    border-radius: 15px !important;
+    resize: vertical;
+    height: 40px;
+}
+
+/* Buttons */
+.btn {
+    width: 250px; 
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    font-size: 17px !important;
+    height: 2.45rem !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-success {
+    background-color: #0038a8 !important;
+}
+
+.btn-primary {
+    background-color: #0fa100 !important;
+    border-color: #0fa100 !important;
+}
+
+.btn-danger {
+    background-color: #cf1127 !important;
+}
+
+/* ===================== */
+/* Reported Issues Table */
+/* ===================== */
+
+.table-responsive {
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+}
+
+/* Table Layout */
+.table {
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table thead th {
+    background-color: #ebf5ff;
+    color: #014fa3;
+    font-weight: 600;
+    vertical-align: middle;
+    font-size: 15px;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+    padding: 12px;
+    vertical-align: middle;
+    font-size: 14px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+    word-break: break-word;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #fafbfc;
+}
+
+/* Sticky header */
+.table-responsive thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 1;
+}
+
+/* Scrollbar tweaks - hide scrollbar */
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
+}
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+/* Alert styling */
+.alert-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}

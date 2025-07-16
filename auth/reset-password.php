@@ -45,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,20 +52,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
     <link rel="icon" type="image/x-icon" href="asset/img/qcpl-logo.png">
+
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../asset/css/reset-password.css"> 
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card">
+            <div class="mt-4">
+                <a href="../index.php" class="link">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 14px;"></i> Back to Login
+                </a>
+            </div>
             <div class="card-body">
                 <div class="text-center mb-5">
-                    <h4>Reset Your Password</h4>
+                    <img src="../asset/img/qcpl-sts-logo.png" alt="QCPL Logo" class="logo" width="80px">
+                    <h5 class="text-center mt-3">QCPL STS</h5>
+                    <h4 class="text-center mt-0">Reset Your Password</h4><br>
                 </div>
 
                 <?php if (isset($error_message)): ?>
                     <div class="alert alert-danger"><?php echo $error_message; ?></div>
                 <?php endif; ?>
-
+                
                 <form action="../auth/reset-password.php" method="POST">
                     <div class="form-group">
                         <input type="password" id="new_password" class="form-control custom-input" name="new_password" placeholder="Enter New Password" required>
@@ -75,11 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="form-group mt-3">
                         <input type="password" class="form-control custom-input" name="confirm_password" placeholder="Confirm New Password" required>
                     </div>
+
+                    <div class="text-center mt-2">
                     <button type="submit" class="btn btn-primary w-100 mt-3">Reset Password</button>
+                    </div>
                 </form>
-                <div class="text-center mt-3">
-                    <a href="../auth/login.php" class="links">Back to Login</a>
-                </div>
             </div>
         </div>
     </div>

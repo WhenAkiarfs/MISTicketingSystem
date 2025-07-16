@@ -1,12 +1,10 @@
 <script>
-  var pageTitle = "IT Staff Management";
+    var pageTitle = "IT Staff Management";
 </script>
 
 <?php
 session_start();
 include '../Includes/config.php';
-
-
 
 if (isset($_SESSION['UserId'])) {
     $userId = $_SESSION['UserId'];
@@ -78,8 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel="stylesheet" href="../asset/css/admin-dashboard.css">
-    <link rel="stylesheet" href="../asset/css/admin-staff-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -93,6 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- External JS Files -->
+    <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
+    <script src="../asset/js/fetchModal.js"></script>
 </head>
 
 <body>
@@ -173,43 +180,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </span>
                                             </td>
                                             <td>
+                                            <!-- Edit Button -->
                                             <button 
                                                 class="btn btn-edit btn-sm" 
-                                                data-bs-toggle="modal" 
-                                                data-bs-target="#editModal<?php echo $user['UserId']; ?>">
+                                                onclick="openEditModal(<?php echo $user['UserId']; ?>)">
                                                 Edit
                                             </button>
-                                            <div class="modal fade" id="editModal<?php echo $user['UserId']; ?>" tabindex="-1">
-                        //Update modal
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <form method="POST" action="../modals/adminUpdateIT.php">
-                                <div class="modal-header">
-                                <h5 class="modal-title">Edit IT Staff</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-                                <div class="modal-body">
-                                <input type="hidden" name="id" value="<?php echo $user['UserId']; ?>">
-                                <label>First Name:</label>
-                                <input type="text" name="first_name" class="form-control" value="<?php echo $user['FirstName']; ?>" required>
-                                <label>Last Name:</label>
-                                <input type="text" name="last_name" class="form-control" value="<?php echo $user['LastName']; ?>" required>
-                                <label>Email:</label>
-                                <input type="email" name="email" class="form-control" value="<?php echo $user['Email']; ?>" required>
-                                <label>Contact No:</label>
-                                <input type="text" name="contactno" class="form-control" value="<?php echo $user['Contactno']; ?>" required>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                        </div>
-
-                                          
-                                            <button class="btn btn-danger btn-sm" onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">Delete</button>
+                                            <!-- Delete Button -->
+                                            <button 
+                                                class="btn btn-danger btn-sm" 
+                                                onclick="openDeleteModal(<?php echo $user['UserId']; ?>)">
+                                                Delete
+                                            </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -218,32 +200,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="staffTablePagination"></div>
+
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
+                </div>
+            </div>
         </main>
         </div>
     </div>
     
     <!-- Register IT Staff Modal -->
-    <?php include '../modals/adminRegisterIT.php'; ?>
-    <!-- Update IT Staff Modal -->
-    <?php include '../modals/adminUpdateIT.php'; ?>
-    <!-- Delete IT Staff Modal -->
-    <?php include '../modals/adminDeleteIT.php'; ?>
+    <?php include '../modals/RegisterIT.php'; ?>
 
-    <!-- External JS Files -->
-    <script src="../asset/js/sidebar.js"></script>
-    <script src="../asset/js/adminfetchModal.js"></script>
+    <!-- Update IT Staff Modal -->
+    <?php include '../modals/UpdateIT.php'; ?>
+
+    <!-- Delete IT Staff Modal -->
+    <?php include '../modals/confirmationModal.php'; ?>
+
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
     
     <script>
-  document.getElementById('searchInput').addEventListener('keyup', function () {
-    const filter = this.value.toLowerCase();
-    const rows = document.querySelectorAll('#staffTable tbody tr');
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        const filter = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#staffTable tbody tr');
 
-    rows.forEach(row => {
-      const cells = Array.from(row.getElementsByTagName('td'));
-      const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
-      row.style.display = match ? '' : 'none';
+        rows.forEach(row => {
+        const cells = Array.from(row.getElementsByTagName('td'));
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? '' : 'none';
+        });
     });
-  });
-</script>
+    </script>
+
+    <script>
+        paginateTableWithLimitSelector(
+        '#staffTable',
+        '#staffTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

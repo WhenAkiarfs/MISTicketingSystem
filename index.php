@@ -7,16 +7,41 @@
     <link rel="icon" type="image/x-icon"  alt="qcpl_logo" href="asset/img/qcpl-sts-logo.png">
 
     <!-- Bootstrap 5 CDN -->
+    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="asset/css/login.css">
-    <link rel="stylesheet" href="asset/css/auxiliary-login.css">
+    <link rel="stylesheet" href="../asset/css/login.css">
+    <link rel="stylesheet" href="../asset/css/auxiliary-login.css">
     
 </head>
+
+<?php
+session_start();
+if (isset($_SESSION['login_error'])):
+?>
+    <div id="loginErrorAlert"
+        class="alert alert-danger position-fixed top-0 start-50 translate-middle-x mt-3 shadow z-3 text-center"
+        role="alert" style="min-width: 300px; z-index: 1055;">
+        <?= htmlspecialchars($_SESSION['login_error']) ?>
+    </div>
+    <script>
+        setTimeout(function () {
+            const alert = document.getElementById('loginErrorAlert');
+            if (alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500);
+            }
+        }, 7000);
+    </script>
+<?php
+unset($_SESSION['login_error']);
+endif;
+?>
 
 <div class="overlay">
     <div class="container-fluid d-flex align-items-center justify-content-center vh-100">
@@ -32,8 +57,7 @@
             <div class="col-lg-6 p-5 d-flex flex-column justify-content-center">
                 <h2 class="mb-2"><span class="dot"></span> Log In</h2>
                 <p class="text-muted">Welcome back! Please enter your credentials:</p>
-
-                <form action="auth/login.php" method="POST" id="login-form">
+                <form action="../auth/login.php" method="POST" id="login-form">
                     <div class="mb-2">
                         <label class="form-label">Email Address</label>
                         <input type="email" class="form-control custom-input" id="email" name="email" placeholder="Enter your email address" required>
@@ -81,5 +105,3 @@
     }
     });
 </script>
-</body>
-</html>

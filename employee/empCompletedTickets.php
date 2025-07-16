@@ -22,11 +22,13 @@ if ($_SESSION['RoleId'] != 4) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
     <link rel="stylesheet" href="../asset/css/div_mods.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
     <link rel="stylesheet" href="../asset/css/tbl-controls.css">
-    <link rel="stylesheet" href="../asset/css/buttons.css">    <link rel ="stylesheet" href="../asset/css/pagination.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    
+    <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -40,6 +42,8 @@ if ($_SESSION['RoleId'] != 4) {
     <!-- Custom JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
     <script src="../asset/js/adminAllTickets.js"></script>
 </head>
 
@@ -57,7 +61,7 @@ if ($_SESSION['RoleId'] != 4) {
                 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-2">
                     <!-- Tabs Section -->
                     <div class="d-flex flex-wrap gap-2">
-                        <div class="div-mods inactive" onclick="window.location.href='empTicketMgmt.php'">
+                        <div class="div-mods inactive" onclick="window.location.href='empticketMgmt.php'">
                             <span class="mods">Repair Requests</span>
                         </div>
                         <div class="div-mods active" onclick="window.location.href='empCompletedTickets.php'">
@@ -75,11 +79,6 @@ if ($_SESSION['RoleId'] != 4) {
                             <input type="text" class="form-control" placeholder="Search" aria-label="Search">
                             <span class="input-group-text control-btn"><i class="fa fa-search"></i></span>
                         </div>
-
-                        <!-- Date Button -->
-                        <button class="btn btn-outline-secondary control-btn" type="button">
-                            <i class="fa fa-calendar me-1"></i> Select Date
-                        </button>
 
                         <!-- Filter Dropdown -->
                         <div class="dropdown">
@@ -111,7 +110,7 @@ if ($_SESSION['RoleId'] != 4) {
             <div class="row no-gutters mt-3">
             <div class="col-12">
                 <div class="table-responsive"> 
-                    <table class="table table-striped table-hover" id="tblCompletedTickets">
+                    <table id="completedTixTable" class="table table-striped table-hover">
                     <thead class="thead-dark" style="text-align: center;">
                         <tr>
                             <th style="width: 4%;">Submitted At</th>
@@ -150,13 +149,37 @@ if ($_SESSION['RoleId'] != 4) {
                 </div>
             </div>
 
-            <div class="pagination-container">
-                <ul class="pagination" id="pagination">
-                    <!-- Pagination -->
-                </ul>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="completedTixTablePagination"></div>
+
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
+                </div>
             </div>
         </main>
     </div>
 </div>
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
+    <script>
+        paginateTableWithLimitSelector(
+        '#completedTixTable',
+        '#completedTixTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

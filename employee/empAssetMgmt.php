@@ -25,6 +25,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
     <link rel="stylesheet" href="../asset/css/div_mods.css">
     <link rel="stylesheet" href="../asset/css/navtabs.css">
     <link rel="stylesheet" href="../asset/css/tbl_charts.css">
@@ -43,6 +44,8 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- External JS Link/s -->
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
 </head>
 
 <body>
@@ -78,11 +81,6 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </span>
             </div>
 
-            <!-- Date Button -->
-            <button class="btn btn-outline-secondary control-btn" type="button">
-                <i class="fa fa-calendar me-1"></i> Select Date
-            </button>
-            
             <!-- Filter Dropdown -->
             <div class="dropdown">
                 <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
@@ -112,7 +110,7 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div class="row no-gutters mt-4">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
+                        <table id="assetTable" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th style="width: 2.5%;">Asset ID</th>
@@ -149,8 +147,38 @@ $assets = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+            <!-- Pagination -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                <div class="custom-pagination" id="assetTablePagination"></div>
+
+                <!-- Records per page selector -->
+                <div class="d-flex align-items-center gap-2">
+                    <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                    <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                    <span id="totalItemCount" class="text-muted">of 0 items</span>
+                </div>
+            </div>
         </main>
         </div>
     </div>
+    <!-- Account Profile Update Modal -->
+    <?php include '../auth/updateAcc.php'; ?>
+
+    <!-- Account Password Update Modal -->
+    <?php include '../auth/updatePass.php'; ?>
+
+    <script>
+        paginateTableWithLimitSelector(
+        '#assetTable',
+        '#assetTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+    );
+    </script>
 </body>
 </html>

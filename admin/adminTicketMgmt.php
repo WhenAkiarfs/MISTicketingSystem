@@ -1,5 +1,5 @@
 <script>
-  var pageTitle = "Ticket Management";
+    var pageTitle = "Ticket Management";
 </script>
 
 <?php
@@ -21,9 +21,6 @@ if ($_SESSION['RoleId'] != 1) {
     exit();
 }
 
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +33,12 @@ if ($_SESSION['RoleId'] != 1) {
 
     <!-- External CSS Link/s -->
     <link rel ="stylesheet" href="../asset/css/sidebar.css">
-    <link rel ="stylesheet" href="../asset/css/admin-ticket-mgmt.css">
+    <link rel="stylesheet" href="../asset/css/notif.css">
+    <link rel="stylesheet" href="../asset/css/div_mods.css">
+    <link rel="stylesheet" href="../asset/css/navtabs.css">
+    <link rel="stylesheet" href="../asset/css/tbl_charts.css">
+    <link rel="stylesheet" href="../asset/css/tbl-controls.css">
+    <link rel="stylesheet" href="../asset/css/buttons.css">    
     <link rel ="stylesheet" href="../asset/css/pagination.css">
 
     <!-- Bootstrap CSS -->
@@ -48,9 +50,15 @@ if ($_SESSION['RoleId'] != 1) {
     <!-- Font Awesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Chart.js CDN Link -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Custom JS Link/s -->
     <script src="../asset/js/adminNavTables.js"></script>
+    <script src="../asset/js/adminCharts.js"></script>
     <script src="../asset/js/sidebar.js"></script>
+    <script src="../asset/js/notif.js"></script>
+    <script src="../asset/js/pagination.js"></script>
     <script src="../asset/js/adminAllTickets.js"></script>
 </head>
 
@@ -87,11 +95,6 @@ if ($_SESSION['RoleId'] != 1) {
                             <span class="input-group-text control-btn"><i class="fa fa-search"></i></span>
                         </div>
 
-                        <!-- Date Button -->
-                        <button class="btn btn-outline-secondary control-btn" type="button">
-                            <i class="fa fa-calendar me-1"></i> Select Date
-                        </button>
-
                         <!-- Filter Dropdown -->
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary dropdown-toggle control-btn" type="button" data-bs-toggle="dropdown">
@@ -120,7 +123,7 @@ if ($_SESSION['RoleId'] != 1) {
                 </div>
             </div>
 
-        <!-- Repair Requests Table -->
+            <!-- Repair Requests Table -->
             <div class="row no-gutters mt-4">
             <!-- Tabs Header -->
             <div class="d-flex justify-content-between align-items-center mb-1">
@@ -137,120 +140,172 @@ if ($_SESSION['RoleId'] != 1) {
                 </ul>
             </div>
 
-            <!-- All Repair Tickets Submitted Table -->
             <!-- Tabs Content -->
             <div class="tab-content" id="nav-tix-content">
-                <!-- Pending Tab Pane -->
-                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-                     <table class="table table-md table-bordered table-striped table-hover mt-3">
-                        <div class="table-responsive">
-                            <table id="TicketTable" class="table table-striped table-bordered table-hover" id="tblTickets">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>Ticket Id</th>
-                                        <th>Submitted At </th>
-                                        <th>Branch</th>
-                                        <th>Issue</th>
-                                        <th>Assigned IT</th>
-                                        <th>Status</th>
-                                    </tr>
-
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($tickets as $ticket) : ?>
-                                        <tr>
-                                            <td> <?php echo $ticket['TicketId']; ?></td>
-                                             <td> <?php echo $ticket['TimeSubmitted']; ?></td>
-                                              <td> <?php echo $ticket['BranchName']; ?></td>
-                                               <td> <?php echo $ticket['IssueType']; ?></td>
-                                                <td> <?php echo $ticket['AssignedITstaffId']; ?></td>
-                                                 <td> <?php echo $ticket['TicketStatus']; ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                       
-                        </tbody>
-                        </div>
-                    </table>
-                </div>
-
-                <!-- Ongoing Tab Pane -->
-                <div class="tab-pane fade" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
-                    <table class="table table-md table-bordered table-striped table-hover mt-3">
+            <!-- Pending Tab Pane -->
+            <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                <div class="table-responsive mt-0">
+                    <table id="pendingTable" class="table table-bordered table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th class="dateTime" style="width: 5%">Submitted At</th>
-                                <th class="tixId" style="width: 4%">Ticket ID</th>
-                                <th class="branch" style="width: 7%">Branch</th>
-                                <th class="issue" style="width: 7%">Issue</th>
-                                <th class="assignedIT" style="width: 5%">Assigned IT</th>
+                                <th>Ticket ID</th>
+                                <th>Submitted At</th>
+                                <th>Branch</th>
+                                <th>Issue</th>
+                                <th>Assigned IT</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Apr 12, 2025, 09:43:15</td>
-                            <td>1002</td>
-                            <td>Software</td>
-                            <td>QCPL</td>
-                            <td>John Doe</td>
-                            </tr>
-                        <tr>
-                            <!-- Rows will be populated by JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- All Tickets Tab Pane -->
-                <div class="tab-pane fade" id="alltix" role="tabpanel" aria-labelledby="alltix-tab">
-                    <table class="table table-md table-bordered table-striped table-hover mt-3">
-                        <div class="table-responsive">
-                            <table id="TicketTable" class="table table-striped table-bordered table-hover" id="tblTickets">
-                                <thead class="thead-dark">
+                            <?php foreach ($tickets as $ticket) : ?>
+                                <?php if ($ticket['TicketStatus'] === 'Pending') : ?>
                                     <tr>
-                                        <th>Ticket Id</th>
-                                        <th>Submitted At </th>
-                                        <th>Branch</th>
-                                        <th>Issue</th>
-                                        <th>Assigned IT</th>
-                                        <th>Status</th>
+                                        <td><?php echo $ticket['TicketId']; ?></td>
+                                        <td><?php echo $ticket['TimeSubmitted']; ?></td>
+                                        <td><?php echo $ticket['BranchName']; ?></td>
+                                        <td><?php echo $ticket['IssueType']; ?></td>
+                                        <td><?php echo $ticket['AssignedITstaffId']; ?></td>
+                                        <td><?php echo $ticket['TicketStatus']; ?></td>
                                     </tr>
-
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($tickets as $ticket) : ?>
-                                        <tr>
-                                            <td> <?php echo $ticket['TicketId']; ?></td>
-                                             <td> <?php echo $ticket['TimeSubmitted']; ?></td>
-                                              <td> <?php echo $ticket['BranchName']; ?></td>
-                                               <td> <?php echo $ticket['IssueType']; ?></td>
-                                                <td> <?php echo $ticket['AssignedITstaffId']; ?></td>
-                                                 <td> <?php echo $ticket['TicketStatus']; ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                       
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </tbody>
-                        </div>
                     </table>
-                    
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="pendingTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-            <!-- Pagination -->
-            <div class="pagination-container">
-                <ul class="pagination" id="pagination">
+            <!-- Ongoing Tab Pane -->
+            <div class="tab-pane fade" id="ongoing" role="tabpanel" aria-labelledby="ongoing-tab">
+                <div class="table-responsive mt-0">
+                    <table id="ongoingTable" class="table table-bordered table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Submitted At</th>
+                                <th>Branch</th>
+                                <th>Issue</th>
+                                <th>Assigned IT</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($tickets as $ticket) : ?>
+                                <?php if ($ticket['TicketStatus'] === 'Ongoing') : ?>
+                                    <tr>
+                                        <td><?php echo $ticket['TicketId']; ?></td>
+                                        <td><?php echo $ticket['TimeSubmitted']; ?></td>
+                                        <td><?php echo $ticket['BranchName']; ?></td>
+                                        <td><?php echo $ticket['IssueType']; ?></td>
+                                        <td><?php echo $ticket['AssignedITstaffId']; ?></td>
+                                        <td><?php echo $ticket['TicketStatus']; ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
                     <!-- Pagination -->
-                </ul>
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="ongoingTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            </main>
+
+            <!-- All Tickets Tab Pane -->
+            <div class="tab-pane fade" id="alltix" role="tabpanel" aria-labelledby="alltix-tab">
+                <div class="table-responsive mt-0">
+                    <table id="alltixTable" class="table table-bordered table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Ticket ID</th>
+                                <th>Submitted At</th>
+                                <th>Branch</th>
+                                <th>Issue</th>
+                                <th>Assigned IT</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be dynamically added via JavaScript -->
+                        </tbody>
+                    </table>
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pe-4">
+                        <div class="custom-pagination" id="alltixTablePagination"></div>
+
+                        <!-- Records per page selector -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label for="perPageSelect" class="form-label mb-0">Show:</label>
+                            <select id="perPageSelect" class="form-select form-select-sm" style="width: 70px;">
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                            </select>
+                            <span id="totalItemCount" class="text-muted">of 0 items</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
     <!-- End of Main Content -->
 
-    <!-- View Ticket Modal -->
-    <?php include '../modals/viewTicketInfo.php'; ?>
+        <!-- Account Profile Update Modal -->
+        <?php include '../auth/updateAcc.php'; ?>
+
+        <!-- Account Password Update Modal -->
+        <?php include '../auth/updatePass.php'; ?>
+
+        <script>
+        paginateTableWithLimitSelector(
+        '#pendingTable',
+        '#pendingTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+
+        paginateTableWithLimitSelector(
+        '#ongoingTable',
+        '#ongoingTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+
+        paginateTableWithLimitSelector(
+        '#alltixTable',
+        '#alltixTablePagination',
+        'perPageSelect',
+        'totalItemCount'
+        );
+        </script>
 </body>
 </html>
